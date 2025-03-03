@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import { App } from "./src/components/App";
-import "./src/css/index.css";
+import App from "./App";
+import { BalanceProvider } from "./context/BalanceContext";
+import "./assets/styles/index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<React.StrictMode>
-		<BrowserRouter>
+		<BalanceProvider>
 			<App />
-		</BrowserRouter>
+		</BalanceProvider>
 	</React.StrictMode>
 );

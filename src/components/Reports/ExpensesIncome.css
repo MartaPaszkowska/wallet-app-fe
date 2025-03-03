@@ -1,0 +1,71 @@
+.reports-overview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 10px 25px;
+    border-radius: 20px;
+    margin-bottom: 32px;
+    background-color: #ffffff;
+    box-shadow: 5px 10px 20px 0 rgba(170, 178, 197, 0.4);
+    position: relative;
+}
+
+.reports-overview__divider {
+    width: 1px;
+    height: 70px;
+    background-color: #e0e5eb;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.reports-overview__income,
+.reports-overview__expense {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+@media (width >= 772px) {
+    .reports-overview {
+        gap: 40px;
+        padding: 15px;
+        box-shadow: 0 10px 60px 0 rgba(170, 178, 197, 0.2);
+    }
+
+    .reports-overview__divider {
+        height: 36px;
+    }
+
+    .reports-overview__income,
+    .reports-overview__expense {
+        flex-direction: row;
+        gap: 15px;
+    }
+
+    .reports-overview__expense {
+        justify-content: end;
+    }
+}
+
+/* Typography */
+.reports-overview__income,
+.reports-overview__expense {
+    font-weight: var(--font-bold);
+    font-size: 0.875rem;
+    color: var(--clr-primary-text);
+}
+
+.reports-overview__expense-highlight {
+    color: var(--clr-expense);
+    letter-spacing: 0.04em;
+}
+
+.reports-overview__income-highlight {
+    color: var(--clr-income);
+    letter-spacing: 0.04em;
+}
