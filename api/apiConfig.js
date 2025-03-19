@@ -7,7 +7,6 @@ const api = axios.create({
 		"Content-Type": "application/json",
 	},
 });
-// Dodanie interceptorów
 api.interceptors.response.use(
 	(response) => response,
 	async (error) => {
@@ -27,7 +26,6 @@ api.interceptors.response.use(
 				return api(originalRequest);
 			} catch (err) {
 				console.error("Unable to refresh token", err);
-				// Wyloguj użytkownika, jeśli nie uda się odświeżyć tokena
 				localStorage.removeItem("token");
 				localStorage.removeItem("refreshToken");
 				window.location.href = "/login";
