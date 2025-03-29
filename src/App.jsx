@@ -2,7 +2,7 @@ import { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { BalanceProvider } from "./context/BalanceContext";
 import { DemoProvider } from "./context/DemoContext";
-import Layout from "./components/SharedLayout/SharedLayout";
+import SharedLayout from "./components/SharedLayout/SharedLayout";
 
 const MainPage = lazy(() => import("./pages/MainPage"));
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -16,7 +16,7 @@ function App() {
 					<Suspense fallback={<div>Loading components...</div>}>
 						<Routes>
 							<Route path="/" element={<MainPage />} />
-							<Route element={<Layout />}>
+							<Route element={<SharedLayout />}>
 								<Route path="/home" element={<HomePage />} />
 								<Route
 									path="/reports"
