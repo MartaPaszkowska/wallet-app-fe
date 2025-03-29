@@ -1,8 +1,8 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { BalanceProvider } from "./context/BalanceContext";
-import { DemoProvider } from "./context/DemoContext"; // ← dodane
-import Layout from "./components/Layout/Layout";
+import { DemoProvider } from "./context/DemoContext";
+import Layout from "./components/SharedLayout/SharedLayout";
 
 const MainPage = lazy(() => import("./pages/MainPage"));
 const HomePage = lazy(() => import("./pages/HomePage"));
