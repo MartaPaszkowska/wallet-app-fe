@@ -144,6 +144,7 @@ const LoginForm = ({ onLogin }) => {
 									"user",
 									JSON.stringify({ email: "guest@demo.com" })
 								);
+								onLogin("guest@demo.com");
 								navigate("/home");
 							}}
 						>

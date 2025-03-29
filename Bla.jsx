@@ -7,8 +7,9 @@
 			"user",
 			JSON.stringify({ email: "guest@demo.com" })
 		);
+		onLogin("guest@demo.com"); // ⬅️ TO JEST KLUCZOWE
 		navigate("/home");
 	}}
 >
-	Try My
+	Try My!
 </button>;
