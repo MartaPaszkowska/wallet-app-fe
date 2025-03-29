@@ -1,21 +1,10 @@
 /* Login.css */
 .logo-login-title {
-	margin-bottom: min(
-		80px,
-		calc(50px + (80 - 50) * ((100vw - 320px) / (772 - 320)))
-	);
-	margin-left: max(
-		0px,
-		calc(0px + (151 - 0) * ((100vw - 466px) / (772 - 466)))
-	);
-	width: min(
-		307px,
-		calc(183px + (307 - 183) * ((100vw - 320px) / (772 - 320)))
-	);
-	height: min(
-		101px,
-		calc(63px + (101 - 63) * ((100vw - 320px) / (772 - 320)))
-	);
+	display: block;
+	max-width: 100%;
+	height: auto;
+	margin-inline: auto;
+	margin-bottom: 40px;
 }
 
 .login {
@@ -42,7 +31,6 @@
 	align-items: center;
 	gap: 10px;
 	padding: 10px 20px;
-
 	cursor: pointer;
 	background-color: var(--clr-background);
 	box-shadow: 1px 2px 3px 0 rgba(170, 178, 197, 0.2);
@@ -123,18 +111,9 @@
 	line-height: 1.2;
 }
 
-@media (width >= 772px) {
-	.logo-login-title {
-		margin-left: calc(139px + (100vw - 772px) / 2);
-	}
-}
-
 @media (width >= 1280px) {
 	.logo-login-title {
-		margin-top: 191px;
-		margin-left: 138px;
-		width: 377px;
-		height: 139px;
+		max-width: 377px;
 	}
 
 	.login {

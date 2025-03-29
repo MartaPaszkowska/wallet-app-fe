@@ -4,6 +4,7 @@ import Header from "../Header/Header";
 import LogoutModal from "../Modal/LogoutModal";
 import Loader from "../Loader/Loader";
 import "./SharedLayout.css";
+import "../../assets/styles/index.css";
 
 const SharedLayout = ({ user, onLogout }) => {
 	const navigate = useNavigate();
@@ -16,16 +17,16 @@ const SharedLayout = ({ user, onLogout }) => {
 	useEffect(() => {
 		const token = localStorage.getItem("token");
 		const user = localStorage.getItem("user");
-	  
+
 		if (!token || !user) {
-		  onLogout();
-		  navigate("/");
+			onLogout();
+			navigate("/");
 		} else {
-		  setToken(token);
+			setToken(token);
 		}
-	  
+
 		setLoading(false);
-	  }, [navigate, onLogout]);
+	}, [navigate, onLogout]);
 
 	useEffect(() => {
 		if (token && location.pathname === "/") {
@@ -69,7 +70,7 @@ const SharedLayout = ({ user, onLogout }) => {
 	if (loading) return <Loader />;
 
 	return (
-		<>
+		<div className="container">
 			<Header email={user?.email} onLogout={handleLogout} />
 			<main className={mainClassName}>
 				<Outlet context={{ email: user?.email }} />
@@ -83,7 +84,7 @@ const SharedLayout = ({ user, onLogout }) => {
 					onStepChange={() => setModalStep(2)}
 				/>
 			)}
-		</>
+		</div>
 	);
 };
 

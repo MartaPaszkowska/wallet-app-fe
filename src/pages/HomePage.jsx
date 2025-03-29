@@ -3,14 +3,14 @@ import DataHeader from "../components/DataHeader/DataHeader";
 import FinanceTracker from "../components/FinanceTracker/FinanceTracker";
 
 const HomePage = () => {
-    const { email } = useOutletContext();
+	const { email } = useOutletContext();
 
-    return (
-        <>
-            <DataHeader email={email} />
-            <FinanceTracker email={email} />
-        </>
-    );
+	return (
+		<div className="container">
+			<DataHeader email={email} />
+			<FinanceTracker email={email} />
+		</div>
+	);
 };
 
 export default HomePage;

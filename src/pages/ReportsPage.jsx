@@ -4,11 +4,11 @@ import TopReports from "../components/Reports/TopReports";
 
 const ReportsPage = () => {
 	return (
-		<>
+		<div className="container">
 			<TopReports />
 			<ExpensesIncome />
 			<ExpensesIncomeStats />
-		</>
+		</div>
 	);
 };
 
