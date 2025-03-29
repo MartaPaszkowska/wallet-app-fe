@@ -9,12 +9,8 @@ const HomePage = lazy(() => import("./pages/HomePage"));
 const ReportsPage = lazy(() => import("./pages/ReportsPage"));
 
 function App() {
-	const user = JSON.parse(localStorage.getItem("user"));
-
 	return (
 		<DemoProvider>
-			{" "}
-			{/* ← dodane wrapper */}
 			<BalanceProvider>
 				<Router>
 					<Suspense fallback={<div>Loading components...</div>}>
