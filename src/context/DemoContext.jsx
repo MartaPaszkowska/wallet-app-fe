@@ -9,10 +9,10 @@ export const DemoProvider = ({ children }) => {
 	const addTransaction = (transaction) => {
 		setDemoTransactions((prev) => [...prev, transaction]);
 
-		if (transaction.type === "income") {
-			setDemoBalance((prev) => prev + transaction.amount);
-		} else if (transaction.type === "expense") {
+		if (transaction.type === "expense") {
 			setDemoBalance((prev) => prev - transaction.amount);
+		} else if (transaction.type === "income") {
+			setDemoBalance((prev) => prev + transaction.amount);
 		}
 	};
 
@@ -22,6 +22,7 @@ export const DemoProvider = ({ children }) => {
 				demoTransactions,
 				demoBalance,
 				addTransaction,
+				setDemoBalance,
 			}}
 		>
 			{children}
