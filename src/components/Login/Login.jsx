@@ -1,3 +1,4 @@
+// Login.jsx
 import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -124,15 +125,29 @@ const LoginForm = ({ onLogin }) => {
 						/>
 					</div>
 					<div className="login__btns-container">
-						<button className="login__log-in-btn" type="submit">
+						<button className="log_reg-btn" type="submit">
 							Log in
 						</button>
 						<button
-							className="login__register-link"
+							className="log_reg-btn"
 							type="button"
 							onClick={() => handleSubmit(values, "register")}
 						>
 							Registration
+						</button>
+						<button
+							className="login__guest-btn"
+							type="button"
+							onClick={() => {
+								localStorage.setItem("token", "guest-token");
+								localStorage.setItem(
+									"user",
+									JSON.stringify({ email: "guest@demo.com" })
+								);
+								navigate("/home");
+							}}
+						>
+							Try My!
 						</button>
 					</div>
 				</Form>
