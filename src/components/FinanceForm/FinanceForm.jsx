@@ -4,8 +4,13 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import API_URL from "../../../api/apiConfig";
+import { useDemo } from "../../context/DemoContext"; ////nowe
 
 const FinanceForm = ({ onAdd, activeSection }) => {
+	const { addTransaction } = useDemo(); ////nowe
+	const isDemo =
+		JSON.parse(localStorage.getItem("user"))?.email === "guest@demo.com"; ////nowe
+
 	const selectExpenses = [
 		{ value: "Transport", label: "Transport" },
 		{ value: "Products", label: "Products" },
@@ -47,6 +52,26 @@ const FinanceForm = ({ onAdd, activeSection }) => {
 
 	const handleFormSubmit = async (values, actions) => {
 		const { resetForm } = actions;
+
+		if (isDemo) {
+			////nowe
+			const transaction = {
+				id: Date.now(),
+				date: values.date,
+				description: values.description,
+				category: values.category,
+				amount: parseFloat(values.amount),
+				type: activeSection === "expenses" ? "expense" : "income",
+			};
+
+			console.log("✅ [DEMO] Transakcja dodana:", transaction); ////nowe
+
+			addTransaction(transaction); ////nowe
+			onAdd(transaction);
+			resetForm();
+			return; ////nowe
+		}
+
 		try {
 			const token = localStorage.getItem("token");
 			if (!token) {
@@ -57,13 +82,6 @@ const FinanceForm = ({ onAdd, activeSection }) => {
 				activeSection === "expenses"
 					? "/transaction/expense"
 					: "/transaction/income";
-
-			console.log("Data being sent to the backend:", {
-				date: values.date,
-				description: values.description,
-				category: values.category,
-				amount: values.amount,
-			});
 
 			const response = await axios.post(
 				`${API_URL}${endpoint}`,
@@ -79,8 +97,6 @@ const FinanceForm = ({ onAdd, activeSection }) => {
 					},
 				}
 			);
-
-			console.log("Transaction added successfully:", response.data);
 
 			const transaction =
 				activeSection === "expenses"
@@ -110,7 +126,7 @@ const FinanceForm = ({ onAdd, activeSection }) => {
 				amount: "",
 			}}
 			validationSchema={validationSchema}
-			onSubmit={(values, actions) => handleFormSubmit(values, actions)}
+			onSubmit={handleFormSubmit}
 		>
 			{({ setFieldValue, values }) => (
 				<Form className="finance-form">

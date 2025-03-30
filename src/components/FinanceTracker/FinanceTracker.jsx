@@ -4,18 +4,31 @@ import "./FinanceTracker.css";
 import axios from "axios";
 import API_URL from "../../../api/apiConfig";
 import { useBalance } from "../../context/BalanceContext";
+import { useDemo } from "../../context/DemoContext"; ////nowe
 
 const FinanceTracker = () => {
 	const [activeSection, setActiveSection] = useState("expenses");
 	const [expenses, setExpenses] = useState([]);
 	const [income, setIncome] = useState([]);
 	const { balance, updateBalance } = useBalance();
+	const { demoTransactions } = useDemo(); ////nowe
+
+	const user = JSON.parse(localStorage.getItem("user")); ////nowe
+	const isDemo = user?.email === "guest@demo.com"; ////nowe
 
 	const handleSwitchSection = (section) => {
 		setActiveSection(section);
 	};
 
 	const fetchData = async (section) => {
+		if (isDemo) {
+			////nowe
+			const filtered = demoTransactions.filter((t) => t.type === section); ////nowe
+			if (section === "expense") setExpenses(filtered); ////nowe
+			if (section === "income") setIncome(filtered); ////nowe
+			return; ////nowe
+		}
+
 		const token = localStorage.getItem("token");
 		if (!token) {
 			console.error("No authorization token.");
@@ -113,7 +126,7 @@ const FinanceTracker = () => {
 
 	useEffect(() => {
 		fetchData(activeSection === "expenses" ? "expense" : "income");
-	}, [activeSection]);
+	}, [activeSection, demoTransactions]); ////nowe - dodano zależność demoTransactions
 
 	return (
 		<div className="tracker-container">
