@@ -4,13 +4,8 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import API_URL from "../../../api/apiConfig";
-import { useDemo } from "../../context/DemoContext"; // ← dodane
 
 const FinanceForm = ({ onAdd, activeSection }) => {
-	const { addTransaction } = useDemo(); // ← dodane
-	const isDemo =
-		JSON.parse(localStorage.getItem("user"))?.email === "guest@demo.com"; // ← dodane
-
 	const selectExpenses = [
 		{ value: "Transport", label: "Transport" },
 		{ value: "Products", label: "Products" },
@@ -52,22 +47,6 @@ const FinanceForm = ({ onAdd, activeSection }) => {
 
 	const handleFormSubmit = async (values, actions) => {
 		const { resetForm } = actions;
-
-		if (isDemo) {
-			const demoTransaction = {
-				_id: crypto.randomUUID(),
-				date: values.date,
-				description: values.description,
-				category: values.category,
-				amount: parseFloat(values.amount),
-				type: activeSection === "expenses" ? "expense" : "income",
-			};
-			addTransaction(demoTransaction);
-			onAdd(demoTransaction);
-			resetForm();
-			return;
-		}
-
 		try {
 			const token = localStorage.getItem("token");
 			if (!token) {
@@ -78,6 +57,13 @@ const FinanceForm = ({ onAdd, activeSection }) => {
 				activeSection === "expenses"
 					? "/transaction/expense"
 					: "/transaction/income";
+
+			console.log("Data being sent to the backend:", {
+				date: values.date,
+				description: values.description,
+				category: values.category,
+				amount: values.amount,
+			});
 
 			const response = await axios.post(
 				`${API_URL}${endpoint}`,
@@ -93,6 +79,8 @@ const FinanceForm = ({ onAdd, activeSection }) => {
 					},
 				}
 			);
+
+			console.log("Transaction added successfully:", response.data);
 
 			const transaction =
 				activeSection === "expenses"
