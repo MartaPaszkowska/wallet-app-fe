@@ -7,12 +7,17 @@ export const DemoProvider = ({ children }) => {
 	const [demoBalance, setDemoBalance] = useState(0);
 
 	const addTransaction = (transaction) => {
-		setDemoTransactions((prev) => [...prev, transaction]);
+		const transactionWithDate = {
+			...transaction,
+			date: new Date().toISOString(), // ✅ automatyczna data
+		};
 
-		if (transaction.type === "expense") {
-			setDemoBalance((prev) => prev - transaction.amount);
-		} else if (transaction.type === "income") {
-			setDemoBalance((prev) => prev + transaction.amount);
+		setDemoTransactions((prev) => [...prev, transactionWithDate]);
+
+		if (transactionWithDate.type === "expense") {
+			setDemoBalance((prev) => prev - transactionWithDate.amount);
+		} else if (transactionWithDate.type === "income") {
+			setDemoBalance((prev) => prev + transactionWithDate.amount);
 		}
 	};
 
