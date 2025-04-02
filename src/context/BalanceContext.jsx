@@ -65,7 +65,7 @@ export const BalanceProvider = ({ children }) => {
 	);
 
 	const calculateTransactionTotal = async () => {
-		if (isDemo) return;
+		if (isDemo) return Promise.resolve();
 
 		try {
 			const token = localStorage.getItem("token");
@@ -83,6 +83,7 @@ export const BalanceProvider = ({ children }) => {
 
 			const data = await response.json();
 			setBalance(data.totalBalance);
+			return data.totalBalance;
 		} catch (error) {
 			console.error("Error calculating transaction total:", error);
 		}
