@@ -1,30 +1,20 @@
 import { useState, useEffect } from "react";
+import "./topReport.css";
 import { Link, useNavigate } from "react-router-dom";
 import Balance from "../Balance/Balance";
-import "./topReport.css";
 
 const TopReports = () => {
 	const [date, setDate] = useState(new Date());
+
 	const navigate = useNavigate();
-	const [isHidden, setIsHidden] = useState(window.innerWidth < 600);
 
 	useEffect(() => {
-		// Update the URL with the new month (format YYYY-MM) whenever date changes
+		// Aktualizacja URL z nowym miesiącem
+		// Format YYYY-MM
 		const formattedMonth = date.toISOString().slice(0, 7);
+		console.log(formattedMonth);
 		navigate(`/reports/${formattedMonth}`);
 	}, [date, navigate]);
-
-	useEffect(() => {
-		// Show/hide the "Main page" text based on window width (responsive design)
-		const handleResize = () => {
-			setIsHidden(window.innerWidth < 600);
-		};
-		window.addEventListener("resize", handleResize);
-		handleResize(); // set initial state based on current width
-		return () => {
-			window.removeEventListener("resize", handleResize);
-		};
-	}, []);
 
 	const changeMonth = (offset) => {
 		setDate((prevDate) => {
@@ -35,14 +25,27 @@ const TopReports = () => {
 	};
 
 	const formatDate = () => {
-		const monthName = date.toLocaleString("en-US", { month: "long" });
+		const month = date.toLocaleString("en-US", { month: "long" });
 		const year = date.getFullYear();
-		return `${monthName} ${year}`;
+		return `${month} ${year}`;
 	};
+
+	// Do przetestowania po naprawieniu styli w ReportsPage.jsx
+	const [isHidden, setIsHidden] = useState(window.innerWidth < 600);
+	useEffect(() => {
+		const handleResize = () => {
+			// console.log(`Window width: ${window.innerWidth}`);
+			setIsHidden(window.innerWidth < 600);
+		};
+		window.addEventListener("resize", handleResize);
+		handleResize();
+		return () => {
+			window.removeEventListener("resize", handleResize);
+		};
+	}, []);
 
 	return (
 		<div className="reports-header">
-			{/* Link to go back to main page/home */}
 			<Link to="/" className="reports-header__home-link">
 				<svg width="24" height="24" aria-hidden="true">
 					<use href="/sprite.svg#back-arrow"></use>
@@ -57,12 +60,9 @@ const TopReports = () => {
 					Main page
 				</p>
 			</Link>
-
 			<div className="reports-header__balance-and-month-selector-container">
-				{/* Display current balance (handles demo vs normal internally) */}
 				<Balance />
 
-				{/* Month selector controls */}
 				<div className="reports-header__month-selector-container">
 					<p className="reports-header__month-selector-text">
 						Current period:

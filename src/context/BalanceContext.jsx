@@ -56,7 +56,9 @@ export const BalanceProvider = ({ children }) => {
 				}
 
 				const data = await response.json();
-				setBalance(data.balance);
+				if (typeof data.balance === "number") {
+					setBalance(data.balance); // 🔄 zmiana
+				}
 			} catch (error) {
 				console.error("Error updating balance:", error);
 			}
@@ -82,7 +84,9 @@ export const BalanceProvider = ({ children }) => {
 			}
 
 			const data = await response.json();
-			setBalance(data.totalBalance);
+			if (typeof data.totalBalance === "number") {
+				setBalance(data.totalBalance); // 🔄 zmiana
+			}
 		} catch (error) {
 			console.error("Error calculating transaction total:", error);
 		}

@@ -3,38 +3,32 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Svg from "../../../assets/svg/ExpensesIncome/symbol-defs.svg";
 import SvgBackground from "../../../assets/svg/ExpensesIncome/Rectangle 38.svg";
-
 import "./ExpensesIncomeStats.css";
 import API_URL from "../../../../api/apiConfig";
 import BarChartComponent from "../../BarChartComponent/BarChartComponent";
 import Loader from "../../Loader/Loader";
+import { useDemo } from "../../../context/DemoContext";
 
 const ExpensesList = () => {
-	const { date } = useParams(); // e.g. "2025-03" from URL
+	const { date } = useParams();
 	const [expenses, setExpenses] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const [selectedCategory, setSelectedCategory] = useState(null);
 	const [selectedKey, setSelectedKey] = useState(null);
+	const { demoTransactions } = useDemo();
+	const currentUser = JSON.parse(localStorage.getItem("user"));
+	const isDemo = currentUser?.email === "guest@demo.com";
 
 	useEffect(() => {
 		const fetchExpenses = async () => {
 			setLoading(true);
 			setError(null);
-
-			// Determine if current user is the demo user
-			const currentUser = JSON.parse(localStorage.getItem("user"));
-			const isDemo = currentUser?.email === "guest@demo.com";
-
 			if (isDemo) {
-				// Demo mode: load transactions from localStorage instead of backend
-				const stored = localStorage.getItem("demo-transactions");
-				const parsedTransactions = stored ? JSON.parse(stored) : [];
-				// Filter transactions for the selected month (date format "YYYY-MM")
-				const demoData = parsedTransactions.filter((tx) =>
-					tx.date.startsWith(date)
-				);
-				// Group transactions by category and sum their amounts
+				const demoData = demoTransactions.filter(
+					(tx) => tx.type === "expense" && tx.date.startsWith(date)
+				); // 🔄 Zmieniona linia
+
 				const grouped = demoData.reduce((acc, tx) => {
 					if (!acc[tx.category]) {
 						acc[tx.category] = { total: 0 };
@@ -42,34 +36,30 @@ const ExpensesList = () => {
 					acc[tx.category].total += Number(tx.amount);
 					return acc;
 				}, {});
-				// Transform grouped data into the format expected by the UI
 				const transformedDemoExpenses = Object.entries(grouped).map(
 					([category, data]) => ({
 						category,
-						details: data, // { total: ... } for each category
+						details: data,
 					})
 				);
 				setExpenses(transformedDemoExpenses);
 				setSelectedCategory(null);
 				setSelectedKey(null);
 				setLoading(false);
-				return; // Skip the backend fetch
+				return;
 			}
-
 			try {
-				// Normal mode: fetch data from backend
 				const token = localStorage.getItem("token");
 				if (!token) {
-					throw new Error("Brak tokenu autoryzacyjnego"); // No auth token
+					throw new Error("Brak tokenu autoryzacyjnego");
 				}
 				const response = await axios.get(
 					`${API_URL}/transaction/period-data`,
 					{
 						headers: { Authorization: `Bearer ${token}` },
-						params: { date }, // query parameter for selected period
+						params: { date },
 					}
 				);
-				// Transform the response data into the format expected by the UI
 				const transformedExpenses = Object.entries(
 					response.data.expenses.incomesData || {}
 				).map(([category, data]) => ({
@@ -93,9 +83,8 @@ const ExpensesList = () => {
 				setLoading(false);
 			}
 		};
-
 		fetchExpenses();
-	}, [date]); // dependency on date; if user type (demo/normal) can change without remount, include it (e.g., [date, JSON.parse(localStorage.getItem("user"))?.email])
+	}, [date, isDemo, demoTransactions]);
 
 	const expenseIcons = {
 		Products: "icon-products",

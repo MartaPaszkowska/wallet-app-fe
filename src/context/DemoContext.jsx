@@ -7,18 +7,24 @@ export const DemoProvider = ({ children }) => {
 	const [demoBalance, setDemoBalance] = useState(0);
 
 	const addTransaction = (transaction) => {
-		const transactionWithDate = {
+		const newTransaction = {
 			...transaction,
-			date: new Date().toISOString(), // ✅ automatyczna data
+			id: Date.now(),
+			date: new Date().toISOString().split("T")[0],
+			type: transaction.type || "expense", // ← DODANE!
+			owner: "demo-user", // ← JEŚLI wymagane
 		};
 
-		setDemoTransactions((prev) => [...prev, transactionWithDate]);
+		setDemoTransactions((prev) => [...prev, newTransaction]);
 
-		if (transactionWithDate.type === "expense") {
-			setDemoBalance((prev) => prev - transactionWithDate.amount);
-		} else if (transactionWithDate.type === "income") {
-			setDemoBalance((prev) => prev + transactionWithDate.amount);
+		// aktualizacja salda
+		if (newTransaction.type === "expense") {
+			setDemoBalance((prev) => prev - newTransaction.amount);
+		} else if (newTransaction.type === "income") {
+			setDemoBalance((prev) => prev + newTransaction.amount);
 		}
+
+		console.log("[DEMO] Transakcja dodana:", newTransaction);
 	};
 
 	return (
