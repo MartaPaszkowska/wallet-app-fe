@@ -21,7 +21,8 @@ const FinanceSection = ({ data, setData, activeSection, onDelete }) => {
 
 	const deleteEntry = (index) => {
 		const entryToDelete = data[index];
-		if (entryToDelete && entryToDelete._id) {
+		if (entryToDelete && typeof entryToDelete._id !== "undefined") {
+			// 🔧 zmiana
 			onDelete(entryToDelete._id, entryToDelete.amount);
 		}
 		setData((prevData) => prevData.filter((_, i) => i !== index));
