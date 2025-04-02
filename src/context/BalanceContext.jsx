@@ -15,7 +15,7 @@ export const BalanceProvider = ({ children }) => {
 
 		try {
 			const token = localStorage.getItem("token");
-			if (!token) return;
+			if (!token) throw new Error("No token available");
 
 			const response = await fetch(`${API_URL}/balance`, {
 				headers: {
@@ -36,11 +36,11 @@ export const BalanceProvider = ({ children }) => {
 
 	const updateBalance = useCallback(
 		async (newBalance) => {
-			if (isDemo) return;
+			if (isDemo) return Promise.resolve();
 
 			try {
 				const token = localStorage.getItem("token");
-				if (!token) return;
+				if (!token) throw new Error("No token available");
 
 				const response = await fetch(`${API_URL}/balance`, {
 					method: "PATCH",
@@ -65,11 +65,11 @@ export const BalanceProvider = ({ children }) => {
 	);
 
 	const calculateTransactionTotal = async () => {
-		if (isDemo) return;
+		if (isDemo) return Promise.resolve();
 
 		try {
 			const token = localStorage.getItem("token");
-			if (!token) return;
+			if (!token) throw new Error("No token available");
 
 			const response = await fetch(`${API_URL}/transaction/total`, {
 				headers: {
@@ -93,7 +93,7 @@ export const BalanceProvider = ({ children }) => {
 
 		try {
 			const token = localStorage.getItem("token");
-			if (!token) return;
+			if (!token) throw new Error("No token available");
 
 			const response = await fetch(`${API_URL}/transaction/check`, {
 				headers: {
