@@ -7,7 +7,6 @@ import "./ExpensesIncomeStats.css";
 import API_URL from "../../../../api/apiConfig";
 import BarChartComponent from "../../BarChartComponent/BarChartComponent";
 import Loader from "../../Loader/Loader";
-import { useDemo } from "../../../context/DemoContext";
 
 const ExpensesList = () => {
 	const { date } = useParams();
@@ -16,50 +15,28 @@ const ExpensesList = () => {
 	const [error, setError] = useState(null);
 	const [selectedCategory, setSelectedCategory] = useState(null);
 	const [selectedKey, setSelectedKey] = useState(null);
-	const { demoTransactions } = useDemo();
-	const currentUser = JSON.parse(localStorage.getItem("user"));
-	const isDemo = currentUser?.email === "guest@demo.com";
 
 	useEffect(() => {
 		const fetchExpenses = async () => {
 			setLoading(true);
 			setError(null);
-			if (isDemo) {
-				const demoData = demoTransactions.filter(
-					(tx) => tx.type === "expense" && tx.date.startsWith(date)
-				); // 🔄 Zmieniona linia
 
-				const grouped = demoData.reduce((acc, tx) => {
-					if (!acc[tx.category]) {
-						acc[tx.category] = { total: 0 };
-					}
-					acc[tx.category].total += Number(tx.amount);
-					return acc;
-				}, {});
-				const transformedDemoExpenses = Object.entries(grouped).map(
-					([category, data]) => ({
-						category,
-						details: data,
-					})
-				);
-				setExpenses(transformedDemoExpenses);
-				setSelectedCategory(null);
-				setSelectedKey(null);
-				setLoading(false);
-				return;
-			}
 			try {
 				const token = localStorage.getItem("token");
 				if (!token) {
-					throw new Error("Brak tokenu autoryzacyjnego");
+					throw new Error("No authorization token.");
 				}
+
 				const response = await axios.get(
 					`${API_URL}/transaction/period-data`,
 					{
-						headers: { Authorization: `Bearer ${token}` },
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
 						params: { date },
 					}
 				);
+
 				const transformedExpenses = Object.entries(
 					response.data.expenses.incomesData || {}
 				).map(([category, data]) => ({
@@ -73,18 +50,20 @@ const ExpensesList = () => {
 						),
 					},
 				}));
+
 				setExpenses(transformedExpenses);
 				setSelectedCategory(null);
 				setSelectedKey(null);
 			} catch (err) {
-				console.error("Fetching error:", err.message);
-				setError(err.message || "Coś poszło nie tak");
+				console.error("Fetching error: ", err.message);
+				setError(err.message || "Something went wrong");
 			} finally {
 				setLoading(false);
 			}
 		};
+
 		fetchExpenses();
-	}, [date, isDemo, demoTransactions]);
+	}, [date]);
 
 	const expenseIcons = {
 		Products: "icon-products",
@@ -97,7 +76,6 @@ const ExpensesList = () => {
 		"Communal, Communication": "icon-communal-communication",
 		"Sports, Hobbies": "icon-sports-hobbies",
 		Education: "icon-education",
-		Bonus: "icon-bonus",
 		Other: "icon-other",
 	};
 
@@ -122,13 +100,11 @@ const ExpensesList = () => {
 							<img
 								src={SvgBackground}
 								className="svgBackground"
-								alt=""
 							/>
 							<svg
 								className={`eiIcon ${
 									selectedKey === index ? "selected" : ""
 								}`}
-								aria-hidden="true"
 							>
 								<use
 									href={`${Svg}#${

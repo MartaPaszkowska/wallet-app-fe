@@ -3,12 +3,10 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Svg from "../../../assets/svg/ExpensesIncome/symbol-defs.svg";
 import SvgBackground from "../../../assets/svg/ExpensesIncome/Rectangle 38.svg";
-
 import "./ExpensesIncomeStats.css";
 import API_URL from "../../../../api/apiConfig";
 import BarChartComponent from "../../BarChartComponent/BarChartComponent";
 import Loader from "../../Loader/Loader";
-import { useDemo } from "../../../context/DemoContext";
 
 const IncomeList = () => {
 	const { date } = useParams();
@@ -17,42 +15,18 @@ const IncomeList = () => {
 	const [error, setError] = useState(null);
 	const [selectedCategory, setSelectedCategory] = useState(null);
 	const [selectedKey, setSelectedKey] = useState(null);
-	const { demoTransactions } = useDemo(); // (2)
-	const currentUser = JSON.parse(localStorage.getItem("user")); // (3)
-	const isDemo = currentUser?.email === "guest@demo.com"; // (4)
 
 	useEffect(() => {
 		const fetchIncomes = async () => {
 			setLoading(true);
 			setError(null);
-			if (isDemo) {
-				const demoData = demoTransactions.filter(
-					(tx) => tx.type === "income" && tx.date.startsWith(date)
-				); // (5)
-				const grouped = demoData.reduce((acc, tx) => {
-					if (!acc[tx.category]) {
-						acc[tx.category] = { total: 0 };
-					}
-					acc[tx.category].total += Number(tx.amount);
-					return acc;
-				}, {});
-				const transformed = Object.entries(grouped).map(
-					([category, data]) => ({
-						category,
-						details: data,
-					})
-				);
-				setIncomes(transformed);
-				setSelectedCategory(null);
-				setSelectedKey(null);
-				setLoading(false);
-				return;
-			}
+
 			try {
 				const token = localStorage.getItem("token");
 				if (!token) {
 					throw new Error("No authorization token.");
 				}
+
 				const response = await axios.get(
 					`${API_URL}/transaction/period-data`,
 					{
@@ -62,6 +36,7 @@ const IncomeList = () => {
 						params: { date },
 					}
 				);
+
 				const transformedIncomes = Object.entries(
 					response.data.incomes.incomesData || {}
 				).map(([category, data]) => ({
@@ -75,6 +50,7 @@ const IncomeList = () => {
 						),
 					},
 				}));
+
 				setIncomes(transformedIncomes);
 				setSelectedCategory(null);
 				setSelectedKey(null);
@@ -85,8 +61,9 @@ const IncomeList = () => {
 				setLoading(false);
 			}
 		};
+
 		fetchIncomes();
-	}, [date, isDemo, demoTransactions]); // (6)
+	}, [date]);
 
 	const incomeIcons = {
 		Salary: "icon-salary",
@@ -115,7 +92,6 @@ const IncomeList = () => {
 							<img
 								src={SvgBackground}
 								className="svgBackground"
-								alt=""
 							/>
 							<svg
 								className={`eiIcon ${
