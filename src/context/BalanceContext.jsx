@@ -11,7 +11,7 @@ export const BalanceProvider = ({ children }) => {
 		"guest@demo.com";
 
 	const fetchBalance = useCallback(async () => {
-		if (isDemo) return;
+		if (isDemo) return Promise.resolve();
 
 		try {
 			const token = localStorage.getItem("token");
