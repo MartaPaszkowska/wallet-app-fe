@@ -15,7 +15,7 @@ export const BalanceProvider = ({ children }) => {
 
 		try {
 			const token = localStorage.getItem("token");
-			if (!token) return;
+			if (!token) return Promise.resolve();
 
 			const response = await fetch(`${API_URL}/balance`, {
 				headers: {
