@@ -1,5 +1,4 @@
 import { useState } from "react";
-//import { useParams } from "react-router-dom";
 import "./ExpensesIncomeStats.css";
 import ExpensesList from "./ExpensesList";
 import IncomeList from "./IncomeList";

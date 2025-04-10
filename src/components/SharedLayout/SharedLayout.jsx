@@ -4,7 +4,6 @@ import Header from "../Header/Header";
 import LogoutModal from "../Modal/LogoutModal";
 import Loader from "../Loader/Loader";
 import "./SharedLayout.css";
-import "../../assets/styles/index.css";
 
 const SharedLayout = ({ user, onLogout }) => {
 	const navigate = useNavigate();

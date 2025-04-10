@@ -21,17 +21,16 @@ const FinanceSection = ({ data, setData, activeSection, onDelete }) => {
 
 	const deleteEntry = (index) => {
 		const entryToDelete = data[index];
-		if (entryToDelete && typeof entryToDelete._id !== "undefined") {
-			// 🔧 zmiana
+		if (entryToDelete && entryToDelete._id) {
 			onDelete(entryToDelete._id, entryToDelete.amount);
 		}
 		setData((prevData) => prevData.filter((_, i) => i !== index));
 	};
 
 	return (
-		<div className="finance-section">
+		<div className="tracker__finance-section">
 			<FinanceForm onAdd={addEntry} activeSection={activeSection} />
-			<div className="finance-details">
+			<div className="tracker__finance-section-details">
 				<FinanceTable data={data} onDelete={deleteEntry} />
 				<Summary data={data} />
 			</div>
