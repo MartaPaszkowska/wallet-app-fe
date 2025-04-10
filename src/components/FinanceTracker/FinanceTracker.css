@@ -1,252 +1,93 @@
-.tracker__table {
+.tracker__add-transaction-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 15px;
+	margin: 0 auto;
+	margin-bottom: 36px;
+	min-height: 40px;
+}
+
+.tracker__btn-container {
+	position: fixed;
+	bottom: 0;
+	left: 0;
 	width: 100%;
-	table-layout: fixed;
-	margin-bottom: 53px;
+	display: flex;
+	z-index: 1;
 }
 
-.tracker__table-header {
-	clip: rect(0 0 0 0);
-	clip-path: inset(50%);
-	height: 1px;
-	overflow: hidden;
-	position: absolute;
-	white-space: nowrap;
-	width: 1px;
+.tracker__btns-separator {
+	width: 4px;
+	background-color: #ffffff;
 }
 
-.tracker__table-entry {
-	position: relative;
-	box-shadow: 0 1px 0 var(--clr-background);
-}
-
-.tracker__table-entry-date {
-	position: absolute;
-	left: 0;
-	bottom: 8px;
-}
-
-.tracker__table-entry-description {
-	position: absolute;
-	left: 0;
-	width: 45%;
-	padding-top: 8px;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-
-.tracker__table-entry-category {
-	position: absolute;
-	left: 64px;
-	bottom: 8px;
-}
-
-.tracker__table-entry-negative-amount,
-.tracker__table-entry-positive-amount {
-	height: 46px;
-	text-align: right;
-	vertical-align: middle;
-	padding-right: 20px;
+.tracker__selection-btn {
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 53px;
+	background-color: var(--clr-background);
+	cursor: pointer;
 	line-height: 0;
-	width: 43%;
-	position: relative;
-	left: 29%;
 }
 
-.tracker__table-entry-delete {
-	position: absolute;
-	right: 0;
-	top: 50%;
-	transform: translateY(-50%);
-	width: 18px;
-	vertical-align: middle;
-}
-
-@media (width >= 580px) {
-	.tracker__table-entry {
-		position: static;
-	}
-
-	.tracker__table td {
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
-		height: 40px;
-	}
-
-	.tracker__table-entry-date,
-	.tracker__table-header th:nth-child(1) {
-		position: static;
-
-		width: 20%;
-		padding-left: 20px;
-		vertical-align: middle;
-	}
-	.tracker__table-header th:nth-child(1) {
-		width: 19%;
-	}
-
-	.tracker__table-entry-description,
-	.tracker__table-header th:nth-child(2) {
-		padding-top: 0;
-		position: static;
-
-		width: 28%;
-		text-align: left;
-		vertical-align: middle;
-	}
-	.tracker__table-header th:nth-child(2) {
-		width: 29%;
-	}
-
-	.tracker__table-entry-category,
-	.tracker__table-header th:nth-child(3) {
-		position: static;
-
-		width: 21%;
-		vertical-align: middle;
-		text-align: center;
-	}
-
-	.tracker__table-entry-negative-amount,
-	.tracker__table-entry-positive-amount,
-	.tracker__table-header th:nth-child(4) {
-		padding-right: 0;
-		position: static;
-
-		width: 16%;
-		vertical-align: middle;
-	}
-	.tracker__table-header th:nth-child(4) {
-		text-align: right;
-	}
-
-	.tracker__table-entry-delete,
-	.tracker__table-header th:nth-child(5) {
-		position: static;
-		transform: none;
-
-		width: 15%;
-		padding-right: 20px;
-		vertical-align: middle;
-		text-align: right;
-	}
-
-	.tracker__table-entry-delete-btn {
-		width: 32px;
-		height: 32px;
-		border-radius: 50%;
-		cursor: pointer;
-		transition: all 0.2s ease;
-		text-align: center;
-	}
-	.tracker__table-entry-delete-btn:hover {
-		background-color: var(--clr-background);
-	}
+.tracker__selection-btn.tracker__selection-btn--is-active {
+	background-color: var(--clr-accent);
+	color: #ffffff;
 }
 
 @media (width >= 772px) {
-	.tracker__table {
-		margin-bottom: 0;
-
-		border-collapse: collapse;
-		table-layout: fixed;
-		width: 100%;
-		border-top: 2px solid white;
+	.tracker__add-transaction-btn {
+		display: none;
 	}
 
-	.tracker__table-entry {
-		box-shadow: none;
+	.tracker__btn-container {
+		position: static;
 	}
 
-	.tracker__table-header {
-		clip: unset;
-		clip-path: unset;
-		height: unset;
-		overflow: unset;
-		width: unset;
-		white-space: nowrap;
-
-		position: sticky;
-		top: 0;
+	.tracker__btns-separator {
+		display: none;
 	}
 
-	.tracker__table-header th {
-		background-color: var(--clr-background);
-		height: 40px;
-		line-height: 0;
+	.tracker__selection-btn {
+		flex: unset;
+		min-height: 40px;
+		width: 138px;
+		border-radius: 20px 20px 0 0;
+		background-color: #fafbfd;
 	}
 
-	.tracker__table-header th:nth-child(1) {
-		border-radius: 18px 0 0 0;
-	}
-
-	.tracker__table-header th:nth-child(5) {
-		border-radius: 0 18px 0 0;
-	}
-
-	.tracker__table-wrapper {
-		max-height: 401px;
-		overflow-y: auto;
-	}
-	.tracker__table-wrapper::-webkit-scrollbar {
-		width: 6px;
-	}
-	.tracker__table-wrapper::-webkit-scrollbar-track {
-		background: #f5f6fb;
-	}
-	.tracker__table-wrapper::-webkit-scrollbar-thumb {
-		background: var(--clr-accent);
-		border-radius: 2px;
-	}
-
-	.tracker__table-entry td {
-		border-bottom: 2px solid var(--clr-background);
-	}
-	.tracker__table-entry-date {
-		border-left: 2px solid var(--clr-background);
-	}
-	.tracker__table-entry-delete {
-		border-right: 2px solid var(--clr-background);
+	.tracker__selection-btn.tracker__selection-btn--is-active {
+		background-color: #fefefe;
+		color: var(--clr-accent);
 	}
 }
 
 /* Typography */
-.tracker__table-entry-date,
-.tracker__table-entry-category {
-	font-weight: var(--font-regular);
-	font-size: 0.5rem;
-	letter-spacing: 0.04em;
-	color: var(--clr-primary-text);
-}
-
-.tracker__table-entry-description,
-.tracker__table-entry-negative-amount,
-.tracker__table-entry-positive-amount {
-	font-weight: var(--font-bold);
+.tracker__add-transaction-btn {
+	color: var(--clr-primary-light);
 	font-size: 0.75rem;
+	font-weight: var(--font-bold);
 	letter-spacing: 0.04em;
-	color: var(--clr-primary-text);
 }
 
-.tracker__table-entry-negative-amount {
-	color: var(--clr-expense);
+.tracker__selection-btn {
+	color: var(--clr-titles);
+	font-size: 0.75rem;
+	font-weight: var(--font-bold);
+	letter-spacing: 0.02em;
 }
 
-.tracker__table-entry-positive-amount {
-	color: var(--clr-income);
+/* Animations */
+.tracker__selection-btn {
+	transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-@media (width >= 580px) {
-	.tracker__table-entry-date,
-	.tracker__table-entry-category {
-		font-size: 0.75rem;
-	}
-
-	.tracker__table-header th {
-		font-weight: var(--font-bold);
-		font-size: 0.75rem;
-		letter-spacing: 0.02em;
-		color: #000;
+@media (width >= 772px) {
+	.tracker__selection-btn:hover {
+		background-color: #ff751d;
+		color: #fefefe;
 	}
 }

@@ -13,11 +13,6 @@
 	.tracker__finance-section-details {
 		position: relative;
 	}
-	.summary__container {
-		position: absolute;
-		bottom: -352px;
-		left: -40px;
-	}
 }
 
 @media (width >= 1280px) {
@@ -29,12 +24,5 @@
 	.tracker__finance-section-details {
 		display: flex;
 		gap: 75px;
-	}
-	.tracker__table-wrapper {
-		flex: 1;
-	}
-	.summary__container {
-		position: static;
-		flex: 0;
 	}
 }
