@@ -140,7 +140,61 @@ const LoginForm = ({ onLogin }) => {
 						>
 							Registration
 						</button>
-						<button className="login__log-in-btn" type="button">
+						<button
+							className="login__log-in-btn"
+							type="button"
+							onClick={async () => {
+								try {
+									const response = await axios.post(
+										`${API_URL}/auth/login`,
+										{
+											email: "guest@guest.com",
+											password: "haslo123",
+										}
+									);
+
+									if (!response.data.accessToken) {
+										throw new Error(
+											"No access token returned from server."
+										);
+									}
+
+									const userData = {
+										email: "guest@guest.com",
+									};
+									localStorage.setItem(
+										"token",
+										response.data.accessToken
+									);
+									localStorage.setItem(
+										"user",
+										JSON.stringify(userData)
+									);
+
+									iziToast.success({
+										title: "Guest Login",
+										message:
+											"You're now logged in as guest.",
+										position: "topRight",
+										timeout: 3000,
+									});
+
+									onLogin("guest@guest.com");
+									await fetchBalance();
+									navigate("/home");
+								} catch (error) {
+									console.error("Guest login error:", error);
+									iziToast.error({
+										title: "Error",
+										message:
+											error.response?.data?.message ||
+											"Guest login failed.",
+										position: "topRight",
+										timeout: 3000,
+									});
+								}
+							}}
+						>
 							Try My!
 						</button>
 					</div>
