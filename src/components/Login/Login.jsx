@@ -83,8 +83,7 @@ const LoginForm = ({ onLogin }) => {
 		try {
 			const guestData = {
 				email: "guest@guest.com",
-				password:
-					"$2b$10$9x3C0doR96M/5Nd232hdieDu8TrD4GT7A5J2Gh8FoZqSFoI7WbCtm",
+				password: "guest1234",
 			};
 			const response = await axios.post(
 				`${API_URL}/auth/login`,
