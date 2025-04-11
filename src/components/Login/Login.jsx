@@ -8,7 +8,7 @@ import API_URL from "../../../api/apiConfig";
 import "./Login.css";
 import axios from "axios";
 import { useBalance } from "../../context/BalanceContext";
-import { useState } from "react"; // [ZMIANA] dodano useState
+import { useState } from "react";
 
 const Logo = () => (
 	<img
@@ -23,11 +23,30 @@ const Logo = () => (
 const LoginForm = ({ onLogin }) => {
 	const { fetchBalance } = useBalance();
 	const navigate = useNavigate();
-	const [actionType, setActionType] = useState("login"); // [ZMIANA]
+	const [actionType, setActionType] = useState("login");
 
 	const initialValues = {
 		email: "",
 		password: "",
+	};
+
+	const handleSuccess = (email, token) => {
+		const userData = { email };
+		localStorage.setItem("token", token);
+		localStorage.setItem("user", JSON.stringify(userData));
+		onLogin(email);
+		fetchBalance();
+		navigate("/home");
+	};
+
+	const handleError = (error, fallbackMessage) => {
+		console.error("Login/Register error:", error);
+		iziToast.error({
+			title: "Error",
+			message: error.response?.data?.message || fallbackMessage,
+			position: "topRight",
+			timeout: 3000,
+		});
 	};
 
 	const handleSubmit = async (values, action) => {
@@ -39,10 +58,6 @@ const LoginForm = ({ onLogin }) => {
 			if (!response.data.accessToken) {
 				throw new Error("No access token returned from server.");
 			}
-
-			const userData = { email: values.email };
-			localStorage.setItem("token", response.data.accessToken);
-			localStorage.setItem("user", JSON.stringify(userData));
 
 			if (action === "register") {
 				localStorage.setItem("balanceConfirmed", "false");
@@ -58,19 +73,33 @@ const LoginForm = ({ onLogin }) => {
 				timeout: 3000,
 			});
 
-			onLogin(values.email);
-			await fetchBalance();
-			navigate("/home");
+			handleSuccess(values.email, response.data.accessToken);
 		} catch (error) {
-			console.error("Error during login/register:", error);
-			iziToast.error({
-				title: "Error",
-				message:
-					error.response?.data?.message ||
-					"An error occurred. Please try again.",
+			handleError(error, "An error occurred. Please try again.");
+		}
+	};
+
+	const handleGuestLogin = async () => {
+		try {
+			const response = await axios.post(`${API_URL}/auth/login`, {
+				email: "guest@guest.com",
+				password: "haslo123",
+			});
+
+			if (!response.data.accessToken) {
+				throw new Error("No access token returned from server.");
+			}
+
+			iziToast.success({
+				title: "Guest Login",
+				message: "You're now logged in as guest.",
 				position: "topRight",
 				timeout: 3000,
 			});
+
+			handleSuccess("guest@guest.com", response.data.accessToken);
+		} catch (error) {
+			handleError(error, "Guest login failed.");
 		}
 	};
 
@@ -85,9 +114,9 @@ const LoginForm = ({ onLogin }) => {
 					.min(7, "Password must be at least 7 characters long")
 					.required("This field is required"),
 			})}
-			onSubmit={(values) => handleSubmit(values, actionType)} // [ZMIANA]
+			onSubmit={(values) => handleSubmit(values, actionType)}
 		>
-			{({ values }) => (
+			{() => (
 				<Form className="login__form">
 					<div className="login__input-container">
 						<label className="login__label" htmlFor="email">
@@ -143,57 +172,7 @@ const LoginForm = ({ onLogin }) => {
 						<button
 							className="login__log-in-btn"
 							type="button"
-							onClick={async () => {
-								try {
-									const response = await axios.post(
-										`${API_URL}/auth/login`,
-										{
-											email: "guest@guest.com",
-											password: "haslo123",
-										}
-									);
-
-									if (!response.data.accessToken) {
-										throw new Error(
-											"No access token returned from server."
-										);
-									}
-
-									const userData = {
-										email: "guest@guest.com",
-									};
-									localStorage.setItem(
-										"token",
-										response.data.accessToken
-									);
-									localStorage.setItem(
-										"user",
-										JSON.stringify(userData)
-									);
-
-									iziToast.success({
-										title: "Guest Login",
-										message:
-											"You're now logged in as guest.",
-										position: "topRight",
-										timeout: 3000,
-									});
-
-									onLogin("guest@guest.com");
-									await fetchBalance();
-									navigate("/home");
-								} catch (error) {
-									console.error("Guest login error:", error);
-									iziToast.error({
-										title: "Error",
-										message:
-											error.response?.data?.message ||
-											"Guest login failed.",
-										position: "topRight",
-										timeout: 3000,
-									});
-								}
-							}}
+							onClick={handleGuestLogin}
 						>
 							Try My!
 						</button>
