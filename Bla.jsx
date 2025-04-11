@@ -19,6 +19,25 @@ const Logo = () => (
 	/>
 );
 
+const GoogleLoginButton = () => {
+	const handleGoogleLogin = () => {
+		window.location.href = `${API_URL}/auth/google`;
+	};
+
+	return (
+		<button
+			className="login__google-btn"
+			type="button"
+			onClick={handleGoogleLogin}
+		>
+			<svg width="18" height="18">
+				<use href="/sprite.svg#google"></use>
+			</svg>
+			Google
+		</button>
+	);
+};
+
 const LoginForm = ({ onLogin }) => {
 	const { fetchBalance } = useBalance();
 	const navigate = useNavigate();
@@ -134,21 +153,6 @@ const LoginForm = ({ onLogin }) => {
 						>
 							Registration
 						</button>
-						<button
-							className="login__log-in-btn"
-							type="button"
-							onClick={() => {
-								localStorage.setItem("token", "guest-token");
-								localStorage.setItem(
-									"user",
-									JSON.stringify({ email: "guest@demo.com" })
-								);
-								onLogin("guest@demo.com");
-								navigate("/home");
-							}}
-						>
-							Try My!
-						</button>
 					</div>
 				</Form>
 			)}
@@ -161,8 +165,12 @@ const Login = ({ onLogin }) => (
 		<Logo />
 		<section className="login" aria-label="Login or Register">
 			<div className="login__wrapper">
+				<p className="login__option-1">
+					You can log in with your Google Account:
+				</p>
+				<GoogleLoginButton />
 				<p className="login__option-2">
-					Log in using an email and password, after registering:
+					Or log in using an email and password, after registering:
 				</p>
 				<LoginForm onLogin={onLogin} />
 			</div>
