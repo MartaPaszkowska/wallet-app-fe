@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useBalance } from "../../context/BalanceContext";
-import { useDemo } from "../../context/DemoContext"; ////nowe
+import { useDemo } from "../../context/DemoContext";
 import "./Balance.css";
 import { BalanceModal } from "../BalanceModal/BalanceModal";
 
 const Balance = () => {
 	const { balance, loading, updateBalance, calculateTransactionTotal } =
 		useBalance();
-
 	const { setDemoBalance, demoBalance } = useDemo(); ////nowe
 
 	const user = JSON.parse(localStorage.getItem("user")); ////nowe
@@ -27,7 +26,7 @@ const Balance = () => {
 		} else {
 			setShowModal(false);
 		}
-	}, [balance, demoBalance, loading]); ////zmieniono zależności
+	}, [balance, demoBalance, loading]);
 
 	const handleChange = (e) => {
 		const inputValue = e.target.value.replace(" EUR", "");
@@ -44,7 +43,7 @@ const Balance = () => {
 	const handleBlur = () => {
 		if (!isEditing) return;
 		if (!input || input === "") {
-			setInput(isDemo ? demoBalance : balance); ////nowe
+			setInput(isDemo ? demoBalance : balance);
 		}
 		setIsEditing(false);
 	};
@@ -60,22 +59,22 @@ const Balance = () => {
 			});
 			return;
 		}
-
+		if (isDemo) {
+			setDemoBalance(newInitialBalance); ////nowe
+			setInitialBalance(newInitialBalance); ////nowe
+			localStorage.setItem("balanceConfirmed", "true"); ////nowe
+			setShowModal(false); ////nowe
+			document.activeElement.blur(); ////nowe
+			return; ////nowe
+		}
 		try {
-			if (isDemo) {
-				setDemoBalance(newInitialBalance); ////nowe
-				setInitialBalance(newInitialBalance); ////nowe
-				localStorage.setItem("balanceConfirmed", "true"); ////nowe
-				setShowModal(false); ////nowe
-				document.activeElement.blur(); ////nowe
-				return; ////nowe
-			}
-
 			const totalTransactions = await calculateTransactionTotal();
 			const updatedBalance = newInitialBalance + totalTransactions;
 
 			await updateBalance(updatedBalance);
+
 			setInitialBalance(newInitialBalance);
+
 			localStorage.setItem("balanceConfirmed", "true");
 			setShowModal(false);
 			document.activeElement.blur();

@@ -28,9 +28,9 @@ const FinanceSection = ({ data, setData, activeSection, onDelete }) => {
 	};
 
 	return (
-		<div className="tracker__finance-section">
+		<div className="finance-section">
 			<FinanceForm onAdd={addEntry} activeSection={activeSection} />
-			<div className="tracker__finance-section-details">
+			<div className="finance-details">
 				<FinanceTable data={data} onDelete={deleteEntry} />
 				<Summary data={data} />
 			</div>

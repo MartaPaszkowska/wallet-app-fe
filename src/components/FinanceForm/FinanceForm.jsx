@@ -10,7 +10,6 @@ const FinanceForm = ({ onAdd, activeSection }) => {
 	const { addTransaction } = useDemo();
 	const isDemo =
 		JSON.parse(localStorage.getItem("user"))?.email === "guest@demo.com";
-
 	const selectExpenses = [
 		{ value: "Transport", label: "Transport" },
 		{ value: "Products", label: "Products" },
@@ -68,7 +67,7 @@ const FinanceForm = ({ onAdd, activeSection }) => {
 			addTransaction(transaction); ////nowe
 			onAdd(transaction);
 			resetForm();
-			return; ////nowe
+			return;
 		}
 		try {
 			const token = localStorage.getItem("token");
@@ -124,12 +123,6 @@ const FinanceForm = ({ onAdd, activeSection }) => {
 		}
 	};
 
-	const mobileHamburgerToggle = () => {
-		const trackerForm = document.querySelector("tracker__form");
-		console.log(trackerForm.classList);
-		trackerForm.classList.toggle("is-open");
-	};
-
 	return (
 		<Formik
 			initialValues={{
@@ -142,53 +135,46 @@ const FinanceForm = ({ onAdd, activeSection }) => {
 			onSubmit={(values, actions) => handleFormSubmit(values, actions)}
 		>
 			{({ setFieldValue, values }) => (
-				<Form className="tracker__form">
-					<button
-						type="button"
-						className="tracker__mobile-back-btn"
-						aria-label="Back"
-						onClick={mobileHamburgerToggle}
-					>
-						<svg width="24" height="24" aria-hidden="true">
-							<use href="/sprite.svg#back-arrow" />
+				<Form className="finance-form">
+					<div className="finance-form-input">
+						<svg
+							width="32"
+							height="32"
+							viewBox="0 0 32 32"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
+							className="calendar-icon"
+						>
+							<use href="/sprite.svg#calendar" />
 						</svg>
-					</button>
-					<div className="tracker__input-container">
-						<div className="tracker__date-input-container">
-							<svg
-								width="20"
-								height="20"
-								aria-hidden="true"
-								className="tracker__date-input-calendar-icon"
-							>
-								<use href="/sprite.svg#calendar" />
-							</svg>
+						<div className="input-container-date">
 							<Field
 								type="date"
 								name="date"
-								className="tracker__date-input"
+								className="date-input"
 							/>
 							<ErrorMessage
 								name="date"
-								component="p"
-								className="error"
-							/>
-						</div>
-						<div className="tracker__description-input-container">
-							<Field
-								type="text"
-								name="description"
-								placeholder="Product description"
-								className="tracker__description-input"
-							/>
-							<ErrorMessage
-								name="description"
-								component="p"
+								component="div"
 								className="error"
 							/>
 						</div>
 
-						<div className="tracker__select-input-container">
+						<div className="input-container-description">
+							<Field
+								type="text"
+								name="description"
+								placeholder="Product description"
+								className="product-description-input"
+							/>
+							<ErrorMessage
+								name="description"
+								component="div"
+								className="error"
+							/>
+						</div>
+
+						<div className="input-container-select">
 							<Select
 								value={
 									values.category
@@ -213,49 +199,39 @@ const FinanceForm = ({ onAdd, activeSection }) => {
 							/>
 							<ErrorMessage
 								name="category"
-								component="p"
+								component="div"
 								className="error"
 							/>
 						</div>
 
-						<div className="tracker__amount-input-container">
+						<div className="input-container-amount">
+							<svg
+								width="32"
+								height="32"
+								viewBox="0 0 32 32"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+								className="calculator-icon"
+							>
+								<use href="/sprite.svg#calculator" />
+							</svg>
 							<Field
 								type="number"
-								inputMode="decimal"
 								name="amount"
 								placeholder="0.00"
-								className="tracker__amount-input"
+								className="amount-input"
 								step="0.01"
 							/>
 							<ErrorMessage
 								name="amount"
-								component="p"
+								component="div"
 								className="error"
 							/>
-							<svg
-								width="20"
-								height="20"
-								aria-hidden="true"
-								className="tracker__amount-input-icon"
-							>
-								<use href="/sprite.svg#calculator" />
-							</svg>
 						</div>
 					</div>
-					<div className="tracker__form-btns-container">
-						<button
-							type="submit"
-							className="tracker__form-submit-btn"
-							onClick={mobileHamburgerToggle}
-						>
-							INPUT
-						</button>
-						<button
-							type="reset"
-							className="tracker__form-reset-btn"
-						>
-							CLEAR
-						</button>
+					<div className="finance-form-button">
+						<button type="submit">INPUT</button>
+						<button type="reset">CLEAR</button>
 					</div>
 				</Form>
 			)}

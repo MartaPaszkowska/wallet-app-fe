@@ -127,44 +127,29 @@ const FinanceTracker = () => {
 		fetchData(activeSection === "expenses" ? "expense" : "income");
 	}, [activeSection, demoTransactions]);
 
-	const mobileHamburgerToggle = () => {
-		const trackerForm = document.querySelector("tracker__form");
-		trackerForm.classList.toggle("is-open");
-	};
-
 	return (
-		<section className="tracker">
-			<button
-				className="tracker__add-transaction-btn"
-				onClick={mobileHamburgerToggle}
-			>
-				Add Transaction
-				<svg width="14" height="14" aria-hidden="true">
-					<use href="/sprite.svg#add"></use>
-				</svg>
-			</button>
-			<div className="tracker__btn-container">
-				<button
-					className={`tracker__selection-btn ${
-						activeSection === "expenses"
-							? "tracker__selection-btn--is-active"
-							: ""
-					}`}
-					onClick={() => handleSwitchSection("expenses")}
-				>
-					EXPENSES
-				</button>
-				<div className="tracker__btns-separator"></div>
-				<button
-					className={`tracker__selection-btn ${
-						activeSection === "income"
-							? "tracker__selection-btn--is-active"
-							: ""
-					}`}
-					onClick={() => handleSwitchSection("income")}
-				>
-					INCOME
-				</button>
+		<div className="tracker-container">
+			<div className="button-container">
+				<div className="button-single">
+					<button
+						className={`switch-button ${
+							activeSection === "expenses" ? "active" : ""
+						}`}
+						onClick={() => handleSwitchSection("expenses")}
+					>
+						EXPENSES
+					</button>
+				</div>
+				<div className="button-single">
+					<button
+						className={`switch-button ${
+							activeSection === "income" ? "active" : ""
+						}`}
+						onClick={() => handleSwitchSection("income")}
+					>
+						INCOME
+					</button>
+				</div>
 			</div>
 
 			{activeSection === "expenses" && (
@@ -185,7 +170,7 @@ const FinanceTracker = () => {
 					onDelete={deleteEntry}
 				/>
 			)}
-		</section>
+		</div>
 	);
 };
 

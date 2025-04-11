@@ -40,9 +40,7 @@ export const BalanceProvider = ({ children }) => {
 			const data = await response.json();
 			const fetchedBalance = parseFloat(data.balance);
 
-			setBalance(
-				isNaN(fetchedBalance) ? "00.00" : fetchedBalance.toFixed(2)
-			);
+			setBalance(isNaN(fetchedBalance) ? "00.00" : fetchedBalance.toFixed(2));
 		} catch (error) {
 			console.error("Error fetching balance:", error.message);
 			toast.error("Failed to fetch balance!");
@@ -118,10 +116,7 @@ export const BalanceProvider = ({ children }) => {
 
 			return incomeTotal + expensesTotal;
 		} catch (error) {
-			console.error(
-				"Error calculating transaction total:",
-				error.message
-			);
+			console.error("Error calculating transaction total:", error.message);
 			toast.error("Failed to calculate transaction total!");
 			return 0;
 		}
