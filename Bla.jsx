@@ -8,6 +8,7 @@ import API_URL from "../../../api/apiConfig";
 import "./Login.css";
 import axios from "axios";
 import { useBalance } from "../../context/BalanceContext";
+import { useState } from "react"; // <-- [ZMIANA] dodano useState
 
 const Logo = () => (
 	<img
@@ -19,38 +20,20 @@ const Logo = () => (
 	/>
 );
 
-const GoogleLoginButton = () => {
-	const handleGoogleLogin = () => {
-		window.location.href = `${API_URL}/auth/google`;
-	};
-
-	return (
-		<button
-			className="login__google-btn"
-			type="button"
-			onClick={handleGoogleLogin}
-		>
-			<svg width="18" height="18">
-				<use href="/sprite.svg#google"></use>
-			</svg>
-			Google
-		</button>
-	);
-};
-
 const LoginForm = ({ onLogin }) => {
 	const { fetchBalance } = useBalance();
 	const navigate = useNavigate();
+	const [actionType, setActionType] = useState("login"); // <-- [ZMIANA] stan akcji
 
 	const initialValues = {
 		email: "",
 		password: "",
 	};
 
-	const handleSubmit = async (values, actionType) => {
+	const handleSubmit = async (values, action) => {
 		try {
 			const endpoint =
-				actionType === "register" ? "/auth/register" : "/auth/login";
+				action === "register" ? "/auth/register" : "/auth/login";
 			const response = await axios.post(`${API_URL}${endpoint}`, values);
 
 			if (!response.data.accessToken) {
@@ -61,13 +44,13 @@ const LoginForm = ({ onLogin }) => {
 			localStorage.setItem("token", response.data.accessToken);
 			localStorage.setItem("user", JSON.stringify(userData));
 
-			if (actionType === "register") {
+			if (action === "register") {
 				localStorage.setItem("balanceConfirmed", "false");
 			}
 
 			iziToast.success({
 				title:
-					actionType === "register"
+					action === "register"
 						? "Registration Successful"
 						: "Login Successful",
 				message: "Redirecting to your main page.",
@@ -102,7 +85,7 @@ const LoginForm = ({ onLogin }) => {
 					.min(7, "Password must be at least 7 characters long")
 					.required("This field is required"),
 			})}
-			onSubmit={(values) => handleSubmit(values, "login")}
+			onSubmit={(values) => handleSubmit(values, actionType)} // <-- [ZMIANA] użycie actionType
 		>
 			{({ values }) => (
 				<Form className="login__form">
@@ -143,15 +126,34 @@ const LoginForm = ({ onLogin }) => {
 						/>
 					</div>
 					<div className="login__btns-container">
-						<button className="login__log-in-btn" type="submit">
+						<button
+							className="login__log-in-btn"
+							type="submit"
+							onClick={() => setActionType("login")}
+						>
 							Log in
 						</button>
 						<button
 							className="login__register-link"
-							type="button"
-							onClick={() => handleSubmit(values, "register")}
+							type="submit"
+							onClick={() => setActionType("register")}
 						>
 							Registration
+						</button>
+						<button
+							className="login__log-in-btn"
+							type="button"
+							onClick={() => {
+								localStorage.setItem("token", "guest-token");
+								localStorage.setItem(
+									"user",
+									JSON.stringify({ email: "guest@demo.com" })
+								);
+								onLogin("guest@demo.com");
+								navigate("/home");
+							}}
+						>
+							Try My!
 						</button>
 					</div>
 				</Form>
@@ -165,12 +167,8 @@ const Login = ({ onLogin }) => (
 		<Logo />
 		<section className="login" aria-label="Login or Register">
 			<div className="login__wrapper">
-				<p className="login__option-1">
-					You can log in with your Google Account:
-				</p>
-				<GoogleLoginButton />
 				<p className="login__option-2">
-					Or log in using an email and password, after registering:
+					Log in using an email and password, after registering:
 				</p>
 				<LoginForm onLogin={onLogin} />
 			</div>
