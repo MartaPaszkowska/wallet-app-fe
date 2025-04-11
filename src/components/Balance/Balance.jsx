@@ -1,18 +1,12 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useBalance } from "../../context/BalanceContext";
-import { useDemo } from "../../context/DemoContext";
 import "./Balance.css";
 import { BalanceModal } from "../BalanceModal/BalanceModal";
 
 const Balance = () => {
 	const { balance, loading, updateBalance, calculateTransactionTotal } =
 		useBalance();
-	const { setDemoBalance, demoBalance } = useDemo(); ////nowe
-
-	const user = JSON.parse(localStorage.getItem("user")); ////nowe
-	const isDemo = user?.email === "guest@demo.com"; ////nowe
-
 	const [input, setInput] = useState(balance || "0.00");
 	const [isEditing, setIsEditing] = useState(false);
 	const [showModal, setShowModal] = useState(false);
@@ -20,13 +14,16 @@ const Balance = () => {
 
 	useEffect(() => {
 		const balanceConfirmed = localStorage.getItem("balanceConfirmed");
-		const val = isDemo ? demoBalance : balance; ////nowe
-		if (!loading && parseFloat(val) === 0 && balanceConfirmed !== "true") {
+		if (
+			!loading &&
+			parseFloat(balance) === 0 &&
+			balanceConfirmed !== "true"
+		) {
 			setShowModal(true);
 		} else {
 			setShowModal(false);
 		}
-	}, [balance, demoBalance, loading]);
+	}, [balance, loading]);
 
 	const handleChange = (e) => {
 		const inputValue = e.target.value.replace(" EUR", "");
@@ -43,7 +40,7 @@ const Balance = () => {
 	const handleBlur = () => {
 		if (!isEditing) return;
 		if (!input || input === "") {
-			setInput(isDemo ? demoBalance : balance);
+			setInput(balance);
 		}
 		setIsEditing(false);
 	};
@@ -59,14 +56,7 @@ const Balance = () => {
 			});
 			return;
 		}
-		if (isDemo) {
-			setDemoBalance(newInitialBalance); ////nowe
-			setInitialBalance(newInitialBalance); ////nowe
-			localStorage.setItem("balanceConfirmed", "true"); ////nowe
-			setShowModal(false); ////nowe
-			document.activeElement.blur(); ////nowe
-			return; ////nowe
-		}
+
 		try {
 			const totalTransactions = await calculateTransactionTotal();
 			const updatedBalance = newInitialBalance + totalTransactions;
@@ -102,9 +92,9 @@ const Balance = () => {
 								value={
 									isEditing
 										? input
-										: `${parseFloat(
-												isDemo ? demoBalance : balance ////nowe
-										  ).toFixed(2)} EUR`
+										: `${parseFloat(balance).toFixed(
+												2
+										  )} EUR`
 								}
 								onChange={handleChange}
 								onFocus={handleFocus}

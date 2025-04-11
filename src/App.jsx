@@ -7,9 +7,6 @@ import {
 import SharedLayout from "./components/SharedLayout/SharedLayout";
 import { useState, useEffect, lazy, Suspense } from "react";
 
-import { DemoProvider } from "./context/DemoContext";
-import { BalanceProvider } from "./context/BalanceContext";
-
 const MainPage = lazy(() => import("./pages/MainPage"));
 const HomePage = lazy(() => import("./pages/HomePage"));
 const ReportsPage = lazy(() => import("./pages/ReportsPage"));
@@ -54,57 +51,50 @@ const App = () => {
 	}
 
 	return (
-		<DemoProvider>
-			<BalanceProvider>
-				<Router>
-					<Suspense fallback={<div>Loading components...</div>}>
-						<Routes>
-							<Route
-								path="/"
-								element={
-									<SharedLayout
-										user={user}
-										onLogout={handleLogout}
-									/>
-								}
-							>
-								<Route
-									index
-									element={
-										user ? (
-											<Navigate to="/home" replace />
-										) : (
-											<MainPage onLogin={handleLogin} />
-										)
-									}
-								/>
-								<Route
-									path="/home"
-									element={
-										user ? (
-											<HomePage />
-										) : (
-											<Navigate to="/" replace />
-										)
-									}
-								/>
-								<Route
-									path="/reports/:date"
-									element={
-										user ? (
-											<ReportsPage />
-										) : (
-											<Navigate to="/" replace />
-										)
-									}
-								/>
-								<Route path="*" element={<PageNotFound />} />
-							</Route>
-						</Routes>
-					</Suspense>
-				</Router>
-			</BalanceProvider>
-		</DemoProvider>
+		<Router>
+			<Suspense fallback={<div>Loading components...</div>}>
+				<Routes>
+					<Route
+						path="/"
+						element={
+							<SharedLayout user={user} onLogout={handleLogout} />
+						}
+					>
+						<Route
+							index
+							element={
+								user ? (
+									<Navigate to="/home" replace />
+								) : (
+									<MainPage onLogin={handleLogin} />
+								)
+							}
+						/>
+						<Route
+							path="/home"
+							element={
+								user ? (
+									<HomePage />
+								) : (
+									<Navigate to="/" replace />
+								)
+							}
+						/>
+						<Route
+							path="/reports/:date"
+							element={
+								user ? (
+									<ReportsPage />
+								) : (
+									<Navigate to="/" replace />
+								)
+							}
+						/>
+						<Route path="*" element={<PageNotFound />} />
+					</Route>
+				</Routes>
+			</Suspense>
+		</Router>
 	);
 };
 

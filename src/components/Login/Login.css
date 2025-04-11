@@ -1,10 +1,20 @@
-/* Login.css */
 .logo-login-title {
-	display: block;
-	max-width: 100%;
-	height: auto;
-	margin-inline: auto;
-	margin-bottom: 40px;
+	margin-bottom: min(
+		80px,
+		calc(50px + (80 - 50) * ((100vw - 320px) / (772 - 320)))
+	);
+	margin-left: max(
+		0px,
+		calc(0px + (151 - 0) * ((100vw - 466px) / (772 - 466)))
+	);
+	width: min(
+		307px,
+		calc(183px + (307 - 183) * ((100vw - 320px) / (772 - 320)))
+	);
+	height: min(
+		101px,
+		calc(63px + (101 - 63) * ((100vw - 320px) / (772 - 320)))
+	);
 }
 
 .login {
@@ -31,6 +41,7 @@
 	align-items: center;
 	gap: 10px;
 	padding: 10px 20px;
+
 	cursor: pointer;
 	background-color: var(--clr-background);
 	box-shadow: 1px 2px 3px 0 rgba(170, 178, 197, 0.2);
@@ -67,41 +78,29 @@
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: min(15px, calc(8px + (15 - 8) * ((100vw - 320px) / (772 - 320))));
-	grid-template-rows: auto auto;
 }
 
-.login__guest-btn {
+.login__log-in-btn {
 	width: 100%;
 	padding: 15px 0;
 	border-radius: 16px;
 	text-align: center;
+
 	cursor: pointer;
 	background-color: var(--clr-accent);
-	color: #fff;
-	box-shadow: 1px 3px 5px rgba(255, 107, 8, 0.35);
-	margin-top: 16px;
-	font-weight: var(--font-bold);
-	font-size: 0.75rem;
-	letter-spacing: 0.02em;
-	text-transform: uppercase;
-	grid-column: span 2;
+	box-shadow: 1px 3px 5px 0 rgba(255, 107, 8, 0.35);
 }
 
-.log_reg-btn {
+.login__register-link {
 	width: 100%;
 	padding: 15px 0;
 	border-radius: 16px;
 	text-align: center;
+
 	cursor: pointer;
 	background-color: var(--clr-background);
 	box-shadow: 1px 3px 5px 0 rgba(82, 85, 95, 0.15);
-	font-weight: var(--font-bold);
-	font-size: 0.75rem;
-	letter-spacing: 0.02em;
-	text-transform: uppercase;
-	color: #52555f;
 }
-
 .error {
 	position: absolute;
 	bottom: -14px;
@@ -111,9 +110,18 @@
 	line-height: 1.2;
 }
 
+@media (width >= 772px) {
+	.logo-login-title {
+		margin-left: calc(139px + (100vw - 772px) / 2);
+	}
+}
+
 @media (width >= 1280px) {
 	.logo-login-title {
-		max-width: 377px;
+		margin-top: 191px;
+		margin-left: 138px;
+		width: 377px;
+		height: 139px;
 	}
 
 	.login {
