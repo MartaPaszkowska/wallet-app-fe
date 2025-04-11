@@ -30,20 +30,10 @@ const LoginForm = ({ onLogin }) => {
 		password: "",
 	};
 
-	const handleSuccess = (email, token) => {
-		const userData = { email };
-		localStorage.setItem("token", token);
-		localStorage.setItem("user", JSON.stringify(userData));
-		onLogin(email);
-		fetchBalance();
-		navigate("/home");
-	};
-
-	const handleError = (error, fallbackMessage) => {
-		console.error("Login/Register error:", error);
-		iziToast.error({
-			title: "Error",
-			message: error.response?.data?.message || fallbackMessage,
+	const showToast = (type, title, message) => {
+		iziToast[type]({
+			title,
+			message,
 			position: "topRight",
 			timeout: 3000,
 		});
@@ -59,47 +49,71 @@ const LoginForm = ({ onLogin }) => {
 				throw new Error("No access token returned from server.");
 			}
 
+			const userData = { email: values.email };
+			localStorage.setItem("token", response.data.accessToken);
+			localStorage.setItem("user", JSON.stringify(userData));
+
 			if (action === "register") {
 				localStorage.setItem("balanceConfirmed", "false");
 			}
 
-			iziToast.success({
-				title:
-					action === "register"
-						? "Registration Successful"
-						: "Login Successful",
-				message: "Redirecting to your main page.",
-				position: "topRight",
-				timeout: 3000,
-			});
+			showToast(
+				"success",
+				action === "register"
+					? "Registration Successful"
+					: "Login Successful",
+				"Redirecting to your main page."
+			);
 
-			handleSuccess(values.email, response.data.accessToken);
+			onLogin(values.email);
+			await fetchBalance();
+			navigate("/home");
 		} catch (error) {
-			handleError(error, "An error occurred. Please try again.");
+			console.error("Error during login/register:", error);
+			showToast(
+				"error",
+				"Error",
+				error.response?.data?.message ||
+					"An error occurred. Please try again."
+			);
 		}
 	};
 
 	const handleGuestLogin = async () => {
 		try {
-			const response = await axios.post(`${API_URL}/auth/login`, {
+			const guestData = {
 				email: "guest@guest.com",
 				password: "haslo123",
-			});
+			};
+			const response = await axios.post(
+				`${API_URL}/auth/login`,
+				guestData
+			);
 
 			if (!response.data.accessToken) {
 				throw new Error("No access token returned from server.");
 			}
 
-			iziToast.success({
-				title: "Guest Login",
-				message: "You're now logged in as guest.",
-				position: "topRight",
-				timeout: 3000,
-			});
+			const userData = { email: guestData.email };
+			localStorage.setItem("token", response.data.accessToken);
+			localStorage.setItem("user", JSON.stringify(userData));
 
-			handleSuccess("guest@guest.com", response.data.accessToken);
+			showToast(
+				"success",
+				"Guest Login",
+				"You're now logged in as guest."
+			);
+
+			onLogin(guestData.email);
+			await fetchBalance();
+			navigate("/home");
 		} catch (error) {
-			handleError(error, "Guest login failed.");
+			console.error("Guest login error:", error);
+			showToast(
+				"error",
+				"Error",
+				error.response?.data?.message || "Guest login failed."
+			);
 		}
 	};
 
@@ -116,69 +130,67 @@ const LoginForm = ({ onLogin }) => {
 			})}
 			onSubmit={(values) => handleSubmit(values, actionType)}
 		>
-			{() => (
-				<Form className="login__form">
-					<div className="login__input-container">
-						<label className="login__label" htmlFor="email">
-							Email
-						</label>
-						<Field
-							className="login__input"
-							type="email"
-							id="email"
-							name="email"
-							placeholder="Enter your email"
-							autoComplete="email"
-						/>
-						<ErrorMessage
-							name="email"
-							component="p"
-							className="error"
-						/>
-					</div>
-					<div className="login__input-container">
-						<label className="login__label" htmlFor="password">
-							Password
-						</label>
-						<Field
-							className="login__input"
-							type="password"
-							id="password"
-							name="password"
-							placeholder="Enter your password"
-							autoComplete="current-password"
-						/>
-						<ErrorMessage
-							name="password"
-							component="p"
-							className="error"
-						/>
-					</div>
-					<div className="login__btns-container">
-						<button
-							className="login__log-in-btn"
-							type="submit"
-							onClick={() => setActionType("login")}
-						>
-							Log in
-						</button>
-						<button
-							className="login__register-link"
-							type="submit"
-							onClick={() => setActionType("register")}
-						>
-							Registration
-						</button>
-						<button
-							className="login__log-in-btn"
-							type="button"
-							onClick={handleGuestLogin}
-						>
-							Try My!
-						</button>
-					</div>
-				</Form>
-			)}
+			<Form className="login__form">
+				<div className="login__input-container">
+					<label className="login__label" htmlFor="email">
+						Email
+					</label>
+					<Field
+						className="login__input"
+						type="email"
+						id="email"
+						name="email"
+						placeholder="Enter your email"
+						autoComplete="email"
+					/>
+					<ErrorMessage
+						name="email"
+						component="p"
+						className="error"
+					/>
+				</div>
+				<div className="login__input-container">
+					<label className="login__label" htmlFor="password">
+						Password
+					</label>
+					<Field
+						className="login__input"
+						type="password"
+						id="password"
+						name="password"
+						placeholder="Enter your password"
+						autoComplete="current-password"
+					/>
+					<ErrorMessage
+						name="password"
+						component="p"
+						className="error"
+					/>
+				</div>
+				<div className="login__btns-container">
+					<button
+						className="login__log-in-btn"
+						type="submit"
+						onClick={() => setActionType("login")}
+					>
+						Log in
+					</button>
+					<button
+						className="login__register-link"
+						type="submit"
+						onClick={() => setActionType("register")}
+					>
+						Registration
+					</button>
+					<button
+						className="login__log-in-btn"
+						type="button"
+						onClick={handleGuestLogin}
+					>
+						Try My!
+					</button>
+				</div>
+			</Form>
 		</Formik>
 	);
 };
