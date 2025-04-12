@@ -242,6 +242,13 @@
 		max-width: 900px;
 		margin-inline: auto;
 	}
+	@media (max-width: 771px) {
+		.tracker__input-container {
+			transform: scale(0.7);
+			transform-origin: top center;
+			padding-bottom: 60px;
+		}
+	}
 
 	.tracker__date-input-container {
 		position: static;
