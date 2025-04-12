@@ -40,11 +40,7 @@ const FinanceTable = ({ data = [], onDelete }) => {
 
 	return (
 		<div className="tracker__table-wrapper">
-			<h2 className="visually-hidden">Transaction tracker</h2>
 			<table className="tracker__table">
-				<caption className="visually-hidden">
-					A list of recorded transactions
-				</caption>
 				<thead className="tracker__table-header">
 					<tr>
 						<th scope="col">DATE</th>
