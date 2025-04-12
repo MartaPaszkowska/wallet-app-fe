@@ -166,7 +166,7 @@ main.reports-page::before {
 /* @media dodane tymczasowo dla testów poniżej 772px [ZMIANA] */
 @media (max-width: 771px) {
     main.home-page {
-        transform: scale(0.9);
+        transform: scale(0.7);
         transform-origin: top center;
         padding-bottom: 60px;
     }
