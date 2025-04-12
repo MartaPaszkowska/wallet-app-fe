@@ -189,6 +189,14 @@
 		max-height: 401px;
 		overflow-y: auto;
 	}
+	@media (max-width: 771px) {
+		.tracker__table-wrapper {
+			transform: scale(0.7);
+			transform-origin: top center;
+			padding-bottom: 60px;
+		}
+	}
+
 	.tracker__table-wrapper::-webkit-scrollbar {
 		width: 6px;
 	}
