@@ -184,7 +184,6 @@
 	align-items: center;
 	justify-content: center;
 	gap: 14px;
-	border: 2px solid #52555f;
 	border-radius: 16px;
 	margin-bottom: 80px;
 	position: relative;
@@ -193,7 +192,7 @@
 .tracker__amount-input {
 	min-height: 44px;
 	max-width: 125px;
-	border-right: 2px solid #e0e0e0;
+	border: 2px solid #52555f;
 	padding-inline: 16px;
 	text-align: right;
 	cursor: text;
@@ -248,7 +247,7 @@
 
 .tracker__input-container {
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 	margin-top: 20px;
 	margin-bottom: 32px;
 	max-width: 900px;
@@ -256,7 +255,6 @@
 }
 @media (max-width: 771px) {
 	.tracker__input-container {
-		transform: scale(0.9);
 		display: flex;
 		flex-direction: column;
 		gap: 10px;
