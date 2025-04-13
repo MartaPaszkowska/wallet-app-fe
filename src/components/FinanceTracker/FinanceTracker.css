@@ -1,11 +1,11 @@
 .tracker__add-transaction-btn {
-	display: flex;
 	align-items: center;
 	justify-content: center;
 	gap: 15px;
 	margin: 0 auto;
 	margin-bottom: 36px;
 	min-height: 40px;
+	display: none;
 }
 
 .tracker__btn-container {
