@@ -20,10 +20,11 @@
 @media (max-width: 771px) {
 	.tracker__form {
 		position: relative;
-		top: -137px;
+		top: -30px;
 		right: 0;
 		bottom: 0;
-		left: 343px;
+		left: 370px;
+		width: 100%;
 	}
 }
 .tracker__form.is-open {
@@ -402,7 +403,7 @@
 /* Typography */
 .tracker__date-input {
 	font-weight: var(--font-extra-bold);
-	font-size: 0.75rem;
+	font-size: 1rem;
 	letter-spacing: 0.04em;
 	color: #52555f;
 }
