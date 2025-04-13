@@ -16,6 +16,11 @@
 	display: flex;
 	z-index: 1;
 }
+@media (max-width: 771px) {
+	.tracker__btn-container {
+		width: 100%;
+	}
+}
 
 .tracker__btns-separator {
 	width: 4px;
