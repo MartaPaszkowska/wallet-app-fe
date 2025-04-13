@@ -14,15 +14,16 @@
 		position: relative;
 		z-index: 1;
 		margin-bottom: 48px;
-	}}
-	
+	}
+}
+
 @media (max-width: 771px) {
 	.tracker__form {
-	position: relative;
-	top: -137px;
-  right: 0;
-  bottom: 0;
-  left: 343px;
+		position: relative;
+		top: -137px;
+		right: 0;
+		bottom: 0;
+		left: 343px;
 	}
 }
 .tracker__form.is-open {
@@ -235,108 +236,109 @@
 	box-shadow: 1px 2px 5px 0 rgba(170, 178, 197, 0.4);
 }
 
+.tracker__mobile-back-btn {
+	display: none;
+}
 
-
-	.tracker__mobile-back-btn {
-		display: none;
-	}
-
+.tracker__input-container {
+	display: flex;
+	align-items: center;
+	margin-top: 20px;
+	margin-bottom: 32px;
+	max-width: 900px;
+	margin-inline: auto;
+}
+@media (max-width: 771px) {
 	.tracker__input-container {
+		transform: scale(0.9);
 		display: flex;
-		align-items: center;
-		    margin-top: 20px;
-		margin-bottom: 32px;
-		max-width: 900px;
-		margin-inline: auto;
+		flex-direction: column;
 	}
+}
 
-	.tracker__date-input-container {
-		position: static;
-		gap: 10px;
-		margin-right: 20px;
-	}
+.tracker__date-input-container {
+	position: static;
+	gap: 10px;
+	margin-right: 20px;
+}
 
-	.tracker__description-input-container {
-		flex: 39;
-	}
+.tracker__description-input-container {
+	flex: 39;
+}
 
-	.tracker__description-input {
-		min-height: 44px;
-		border-radius: 15px 0 0 0;
-		border-color: var(--clr-background);
-	}
+.tracker__description-input {
+	min-height: 44px;
+	border-radius: 15px 0 0 0;
+	border-color: var(--clr-background);
+}
 
-	.tracker__description-input-container .error {
-		top: unset;
-		bottom: -17px;
-	}
+.tracker__description-input-container .error {
+	top: unset;
+	bottom: -17px;
+}
 
-	.tracker__select-input-container {
-		flex: 39;
-		margin: 0;
-		min-height: 44px;
-		background-color: #ffffff;
-		border-color: var(--clr-background);
-		border-radius: 0;
-		border-left: none;
-		border-right: none;
-	}
+.tracker__select-input-container {
+	flex: 39;
+	margin: 0;
+	min-height: 44px;
+	background-color: #ffffff;
+	border-color: var(--clr-background);
+	border-radius: 0;
+	border-left: none;
+	border-right: none;
+}
 
-	.tracker__select-input-container .select-control {
-		background-color: #ffffff;
-		border-radius: 0;
-	}
+.tracker__select-input-container .select-control {
+	background-color: #ffffff;
+	border-radius: 0;
+}
 
-	.tracker__select-input-container .css-qr46ko {
-		max-height: 400px;
-	}
+.tracker__select-input-container .css-qr46ko {
+	max-height: 400px;
+}
 
-	.tracker__amount-input-container {
-		flex: 22;
-		max-width: unset;
-		margin: 0;
-		gap: 8px;
-		min-height: 44px;
-		border-color: var(--clr-background);
-		border-radius: 0 16px 16px 0;
-		padding-right: 20px;
-	}
+.tracker__amount-input-container {
+	flex: 22;
+	max-width: unset;
+	margin: 0;
+	gap: 8px;
+	min-height: 44px;
+	border-color: var(--clr-background);
+	border-radius: 0 16px 16px 0;
+	padding-right: 20px;
+}
 
-	.tracker__amount-input {
-		min-height: 40px;
-		max-width: unset;
-		padding-inline: 0;
-		border: none;
-		width: 100%;
-	}
+.tracker__amount-input {
+	min-height: 40px;
+	max-width: unset;
+	padding-inline: 0;
+	border: none;
+	width: 100%;
+}
 
-	.tracker__amount-input-container .error {
-		top: unset;
-		bottom: -18px;
-		left: min(
-			20px,
-			calc(10px + (20 - 10) * ((100vw - 772px) / (950 - 772)))
-		);
-	}
+.tracker__amount-input-container .error {
+	top: unset;
+	bottom: -18px;
+	left: min(20px, calc(10px + (20 - 10) * ((100vw - 772px) / (950 - 772))));
+}
 
-	.tracker__form-btns-container {
-		gap: 15px;
-	}
+.tracker__form-btns-container {
+	gap: 15px;
+}
 
-	.tracker__form-submit-btn,
-	.tracker__form-reset-btn {
-		width: 125px;
-	}
+.tracker__form-submit-btn,
+.tracker__form-reset-btn {
+	width: 125px;
+}
 
-	.tracker__form-submit-btn {
-		box-shadow: none;
-	}
+.tracker__form-submit-btn {
+	box-shadow: none;
+}
 
-	.tracker__form-reset-btn {
-		background-color: #ffffff;
-		border: 2px solid var(--clr-background);
-		box-shadow: none;
-	}
+.tracker__form-reset-btn {
+	background-color: #ffffff;
+	border: 2px solid var(--clr-background);
+	box-shadow: none;
 }
 
 @media (width >= 1280px) {
