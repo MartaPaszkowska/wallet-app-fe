@@ -1,7 +1,12 @@
 .tracker__table {
-	width: 95%;
+	width: 100%;
 	table-layout: fixed;
 	margin-bottom: 53px;
+}
+@media (max-width: 771px) {
+	.tracker__table {
+		width: 50%;
+	}
 }
 
 .tracker__table-header {
