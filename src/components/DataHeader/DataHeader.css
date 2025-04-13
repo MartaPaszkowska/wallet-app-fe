@@ -1,83 +1,62 @@
 .data-header__container {
-    margin-bottom: 40px;
-    position: relative;
-}
-
-.data-header__btn {
-    display: flex;
-    align-items: center;
-    line-height: 0;
-    gap: 4px;
-    margin-bottom: 17px;
+	margin-bottom: 40px;
+	position: relative;
 }
 
 .data-header__link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 32px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 15px;
+	margin-bottom: 32px;
 }
 
 .data-header__text {
-    line-height: 0;
-    padding-top: 5px;
+	line-height: 0;
+	padding-top: 5px;
 }
 
 .data-header__icon {
-    fill: var(--clr-primary-text);
+	fill: var(--clr-primary-text);
 }
 
 @media (width >= 665px) {
-    .data-header__container {
-        display: flex;
-        flex-direction: row-reverse;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 15px;
-    }
+	.data-header__container {
+		display: flex;
+		flex-direction: row-reverse;
+		justify-content: space-between;
+		align-items: center;
+		margin-top: 15px;
+	}
 
-    .data-header__btn {
-        display: none;
-    }
-
-    .data-header__link {
-        margin-bottom: 0;
-        justify-content: space-between;
-    }
+	.data-header__link {
+		margin-bottom: 0;
+		justify-content: space-between;
+	}
 }
 
 @media (width >= 772px) {
-    .data-header__container {
-        margin-top: 0;
-        margin-bottom: 60px;
-    }
+	.data-header__container {
+		margin-top: 0;
+		margin-bottom: 60px;
+	}
 }
 
 @media screen and (min-width: 1280px) {
-    .data-header__container {
-        position: relative;
-        justify-content: center;
-        margin-bottom: 8px;
-    }
+	.data-header__container {
+		position: relative;
+		justify-content: center;
+		margin-bottom: 8px;
+	}
 
-    .data-header__link {
-        position: absolute;
-        right: 0;
-    }
-}
-
-/* Typography */
-.data-header__btn {
-    font-weight: var(--font-bold);
-    font-size: 0.625rem;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    color: var(--clr-titles);
+	.data-header__link {
+		position: absolute;
+		right: 0;
+	}
 }
 
 .data-header__text {
-    color: var(--clr-primary-light);
-    font-size: 0.75rem;
-    letter-spacing: 0.04em;
+	color: var(--clr-primary-light);
+	font-size: 0.75rem;
+	letter-spacing: 0.04em;
 }
