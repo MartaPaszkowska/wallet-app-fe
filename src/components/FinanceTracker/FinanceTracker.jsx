@@ -115,8 +115,22 @@ const FinanceTracker = () => {
 		fetchData(activeSection === "expenses" ? "expense" : "income");
 	}, [activeSection]);
 
+	const mobileHamburgerToggle = () => {
+		const trackerForm = document.querySelector("tracker__form");
+		trackerForm.classList.toggle("is-open");
+	};
+
 	return (
 		<section className="tracker">
+			<button
+				className="tracker__add-transaction-btn"
+				onClick={mobileHamburgerToggle}
+			>
+				Add Transaction
+				<svg width="14" height="14" aria-hidden="true">
+					<use href="/sprite.svg#add"></use>
+				</svg>
+			</button>
 			<div className="tracker__btn-container">
 				<button
 					className={`tracker__selection-btn ${
