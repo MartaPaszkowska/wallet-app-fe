@@ -217,7 +217,6 @@
 	display: flex;
 	justify-content: center;
 	gap: 20px;
-	width: 100%;
 }
 
 .tracker__form-submit-btn,
@@ -258,7 +257,6 @@
 		display: flex;
 		flex-direction: column;
 		gap: 10px;
-		width: 100%;
 	}
 }
 
