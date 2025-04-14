@@ -5,7 +5,7 @@
 	padding: 16px 20px;
 	transform: translateX(-105vw);
 }
-@media (width >= 772px) {
+@media (width >= 771px) {
 	.tracker__form {
 		transform: translateX(0);
 		background-color: transparent;
@@ -17,16 +17,6 @@
 	}
 }
 
-@media (max-width: 771px) {
-	.tracker__form {
-		position: relative;
-		top: -30px;
-		right: 0;
-		bottom: 0;
-		left: 370px;
-		width: 100%;
-	}
-}
 .tracker__form.is-open {
 	transform: translateX(0);
 	z-index: 10;
@@ -260,16 +250,6 @@
 	}
 }
 
-.tracker__date-input-container {
-	position: static;
-	gap: 10px;
-	margin-right: 20px;
-}
-
-.tracker__description-input-container {
-	flex: 39;
-}
-
 .tracker__description-input {
 	min-height: 44px;
 	border-radius: 15px 0 0 0;
@@ -477,5 +457,43 @@
 		font-weight: var(--font-regular);
 		letter-spacing: 0.02em;
 		color: #808080;
+	}
+}
+@media (max-width: 771px) {
+	.tracker__form {
+		/* Ustawienie formularza w sekcji dla małych ekranów */
+		position: relative;
+		top: 0;
+		left: 0;
+		transform: none;
+		width: 100%;
+		max-width: 426px; /* Ograniczenie szerokości formularza - optymalnie ~426px */
+		margin: 0 auto; /* Wycentrowanie formularza horyzontalnie */
+	}
+
+	.tracker__date-input-container,
+	.tracker__description-input-container,
+	.tracker__select-input-container,
+	.tracker__amount-input-container {
+		/* Każdy z kontenerów pól formularza na całą szerokość w kolumnie */
+		position: relative; /* Upewnij się, że kontenery pól są pozycjonowane standardowo */
+		flex: none; /* Nadpisanie właściwości flex (ustawionych dla szerokich ekranów) */
+		width: 100%; /* Kontener pola wypełnia 100% dostępnej szerokości */
+		margin-right: 0; /* Usunięcie marginesów między polami (przy kolumnowym układzie) */
+	}
+
+	.tracker__form-btns-container {
+		/* Przystosowanie układu przycisków akcji na małych ekranach */
+		display: flex;
+		flex-direction: column; /* Ustawienie przycisków jeden pod drugim */
+		align-items: stretch; /* Rozciągnięcie przycisków na pełną szerokość kontenera */
+		justify-content: center;
+		gap: 12px; /* Odstęp między przyciskiem "INPUT" a "CLEAR" */
+		width: 100%;
+	}
+
+	.tracker__form-submit-btn,
+	.tracker__form-reset-btn {
+		width: 100%; /* Każdy z przycisków zajmuje 100% szerokości rodzica */
 	}
 }

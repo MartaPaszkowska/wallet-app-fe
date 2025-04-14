@@ -9,7 +9,18 @@
 }
 @media (max-width: 771px) {
 	.finance-section {
-		width: 100%;
+		/* Zapewnij, że sekcja wypełnia całą szerokość ekranu i może się zwężać poniżej 355px */
+		min-width: unset; /* Usunięcie minimalnej szerokości 355px dla płynnego dopasowania */
+		width: 100%; /* Sekcja zajmuje 100% szerokości ekranu */
+		align-items: center; /* Wycentrowanie zawartości sekcji horyzontalnie */
+		justify-content: center; /* Wycentrowanie zawartości sekcji pionowo */
+	}
+
+	.finance-details {
+		/* Na wąskich ekranach tabela i podsumowanie ustawione są jeden pod drugim */
+		flex-direction: column; /* Zamiast w wierszu, elementy są w kolumnie */
+		width: 100%; /* Kontener szczegółów wypełnia całą szerokość sekcji */
+		gap: 20px; /* (Opcjonalnie) zmniejszenie odstępu między elementami dla lepszego wyglądu */
 	}
 }
 
