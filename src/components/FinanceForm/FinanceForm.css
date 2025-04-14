@@ -39,7 +39,7 @@
 }
 
 .tracker__date-input-container {
-	position: absolute;
+	position: relative;
 	top: 16px;
 	right: -2px;
 	display: flex;
@@ -479,7 +479,9 @@
 		position: relative; /* Upewnij się, że kontenery pól są pozycjonowane standardowo */
 		flex: none; /* Nadpisanie właściwości flex (ustawionych dla szerokich ekranów) */
 		width: 100%; /* Kontener pola wypełnia 100% dostępnej szerokości */
-		margin-right: 0; /* Usunięcie marginesów między polami (przy kolumnowym układzie) */
+		margin-top: 4px; /* Usunięcie marginesów między polami (przy kolumnowym układzie) */
+		top: unset;
+		right: unset;
 	}
 
 	.tracker__form-btns-container {
