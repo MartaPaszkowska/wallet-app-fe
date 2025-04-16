@@ -1,30 +1,56 @@
-# FRONTEND PART OF PROJECT "KAPUSTA" - React + Vite
+# Wallet App Frontend
 
-## About project
+## ⚠️ Terms of Use
 
-This is a teamproject "Kapusta - smart finance", build in React and Node.js, and this is the front part of this project.
+**This source code is provided for viewing purposes only.**  
+You are NOT allowed to copy, modify, distribute, or use this project in any way without the author's explicit permission.
 
-## Usage
+---
 
-Ensure you have the LTS version of Node.js installed on your computer. If necessary, download and install it.
+## 📌 Project Description
 
-1. Clone repository.
-2. Install the project's basic dependencies in the terminal using the command `npm install`.
-3. Run the development mode by executing the command `npm run dev`.
+**Wallet App** is a modern finance tracker built with **React** and powered by **Vite** for fast development and optimized builds. It supports income and expense tracking, visual summaries, and reports. The frontend communicates with a Node.js backend to store and manage user transactions.
 
-## Cooperation
+**Key Features:**
 
-1. Before you start working on a new branch, synchronize your changes in main: `git pull`.
+-   Authentication with local storage
+-   Finance entry form (with validation)
+-   Expense/income summaries
+-   Reports view
+-   Responsive design
+-   Modular codebase with reusable components
 
-2. Make a new branch for every feature or fix
-   `git checkout -b nazwa-gałęzi`
-   Name your branch using a number of feature on trello, eg.:
-   `feature/01`
-   or if you want to fix something:
-   `fix/01`
+---
 
-3. Once you've finished working on the branch, open a pull request on GitHub. After merging, your branch will be deleted automatically.
+## 🛠️ Tech Stack
 
-## Production
+-   ⚛️ React 18
+-   ⚡ Vite 6
+-   🧠 Redux Toolkit + Redux Persist
+-   🔍 Formik + Yup (forms & validation)
+-   📡 Axios (API communication)
+-   📊 Recharts
+-   🧪 ESLint + React Refresh
+-   💅 SCSS & CSS modules
+-   📁 Project structure using aliases (`@/src`)
 
-Deploying a project using Vercel: (fe-kapusta-team-project.vercel.app)
+---
+
+## 🚀 Live
+
+The project is deployed and available at:  
+🔗 **[wallet.app](https://wallet-app-nine-nu.vercel.app)**
+
+## 🔗 Useful Links
+
+-   [🔗 GitHub Repository Frontend](https://github.com/MartaPaszkowska/wallet-app-fe)
+-   [🔗 GitHub Repository Backend](https://github.com/MartaPaszkowska/wallet-app-be)
+
+---
+
+## ✨ Author
+
+👩‍💻 **Marta J Paszkowska**  
+📧 [Contact Email](mailto:marta.j.paszkowska@gmail.com)  
+💼 [DevFolio](https://dev-folio-fe.vercel.app/)
+💼 [LinkedIn](https://www.linkedin.com/in/marta-paszkowska-282504263/)

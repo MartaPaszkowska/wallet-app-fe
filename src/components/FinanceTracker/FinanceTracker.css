@@ -70,7 +70,6 @@
 	}
 }
 
-/* Typography */
 .tracker__add-transaction-btn {
 	color: var(--clr-primary-light);
 	font-size: 0.75rem;
@@ -85,7 +84,6 @@
 	letter-spacing: 0.02em;
 }
 
-/* Animations */
 .tracker__selection-btn {
 	transition: background-color 0.3s ease, color 0.3s ease;
 }

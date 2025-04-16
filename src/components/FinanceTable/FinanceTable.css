@@ -224,7 +224,6 @@
 	}
 }
 
-/* Typography */
 .tracker__table-entry-date,
 .tracker__table-entry-category {
 	font-weight: var(--font-regular);

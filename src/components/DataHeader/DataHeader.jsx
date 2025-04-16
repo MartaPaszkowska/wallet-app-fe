@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
-// import {useState} from "react"
 import Balance from "../Balance/Balance";
-// import CurrentPeriod from "../CurrentPeriod/CurrentPeriod";
 import "./DataHeader.css";
-// import TopReports from '../Reports/TopReports';
 
 const DataHeader = () => {
 	const location = useLocation();

@@ -53,8 +53,6 @@
 		border-bottom: 4px solid #ffffff;
 	}
 }
-
-/* Typography */
 .summary__title {
 	font-weight: var(--font-bold);
 	font-size: 0.75rem;

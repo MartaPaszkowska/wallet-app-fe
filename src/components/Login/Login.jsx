@@ -187,7 +187,7 @@ const LoginForm = ({ onLogin }) => {
 						type="button"
 						onClick={handleGuestLogin}
 					>
-						Try My!
+						Try Me!
 					</button>
 				</div>
 			</Form>

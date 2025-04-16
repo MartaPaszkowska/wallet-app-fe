@@ -98,7 +98,6 @@
 	margin-bottom: 32px;
 }
 
-/* Input containers */
 .tracker__select-input-container .select-control {
 	min-height: 44px;
 	border-radius: 0 0 16px 0;
@@ -129,7 +128,6 @@
 	padding: 8px 15px 8px 0;
 }
 
-/* Dropdown menu */
 .tracker__select-input-container .css-1nmdiq5-menu {
 	margin-top: 1px;
 	border: 2px solid #f5f6fb;
@@ -141,7 +139,6 @@
 	padding-bottom: 0;
 }
 
-/* Value container */
 .tracker__select-input-container .select-option--is-not-selected,
 .tracker__select-input-container .select-option--is-selected {
 	padding: 8px 19px;
@@ -152,7 +149,6 @@
 	background-color: var(--clr-background);
 }
 
-/* Value container hover/focus state */
 .tracker__select-input-container
 	.select-option--is-not-selected.css-d7l1ni-option {
 	background-color: var(--clr-background);
@@ -378,7 +374,6 @@
 	}
 }
 
-/* Typography */
 .tracker__date-input {
 	font-weight: var(--font-extra-bold);
 	font-size: 1rem;
@@ -461,41 +456,38 @@
 }
 @media (max-width: 771px) {
 	.tracker__form {
-		/* Ustawienie formularza w sekcji dla małych ekranów */
 		position: relative;
 		top: 0;
 		left: 0;
 		transform: none;
 		width: 100%;
-		max-width: 426px; /* Ograniczenie szerokości formularza - optymalnie ~426px */
-		margin: 0 auto; /* Wycentrowanie formularza horyzontalnie */
+		max-width: 426px;
+		margin: 0 auto;
 	}
 
 	.tracker__date-input-container,
 	.tracker__description-input-container,
 	.tracker__select-input-container,
 	.tracker__amount-input-container {
-		/* Każdy z kontenerów pól formularza na całą szerokość w kolumnie */
-		position: relative; /* Upewnij się, że kontenery pól są pozycjonowane standardowo */
-		flex: none; /* Nadpisanie właściwości flex (ustawionych dla szerokich ekranów) */
-		width: 100%; /* Kontener pola wypełnia 100% dostępnej szerokości */
-		margin-top: 4px; /* Usunięcie marginesów między polami (przy kolumnowym układzie) */
+		position: relative;
+		flex: none;
+		width: 100%;
+		margin-top: 4px;
 		top: unset;
 		right: unset;
 	}
 
 	.tracker__form-btns-container {
-		/* Przystosowanie układu przycisków akcji na małych ekranach */
 		display: flex;
-		flex-direction: column; /* Ustawienie przycisków jeden pod drugim */
-		align-items: stretch; /* Rozciągnięcie przycisków na pełną szerokość kontenera */
+		flex-direction: column;
+		align-items: stretch;
 		justify-content: center;
-		gap: 12px; /* Odstęp między przyciskiem "INPUT" a "CLEAR" */
+		gap: 12px;
 		width: 100%;
 	}
 
 	.tracker__form-submit-btn,
 	.tracker__form-reset-btn {
-		width: 100%; /* Każdy z przycisków zajmuje 100% szerokości rodzica */
+		width: 100%;
 	}
 }
